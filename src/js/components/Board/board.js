@@ -10,7 +10,7 @@ class Board extends Component {
      return (
          <div className='board'>
             <Shortcuts />
-            <BoardBody />
+            <BoardBody sendedState={this.props.sendedState}/>
             <UserInfo />
          </div>
      )

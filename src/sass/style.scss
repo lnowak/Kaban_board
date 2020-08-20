@@ -14,8 +14,8 @@
     width: 100vw;
 }
 
-.welcomeInfo {
-    height: 10%;
+.header {
+    height: 5%;
     width: 100vw;
     border: 1px black solid;
 }
@@ -25,7 +25,7 @@
     justify-content: space-between;
     align-items: flex-start;
     width: 100vw;
-    height: 90%;
+    height: 95%;
     border: 1px solid red;
 }
 
@@ -35,7 +35,7 @@
 }
 
 .board__userInfo {
-    width: 10%;
+    width: 15%;
 }
 
 .board_shrtcuts {
@@ -43,6 +43,19 @@
 }
 
 .board__body {
-    width: 75%;
+    width: 70%;
     overflow: auto;
+}
+
+.board__body ul {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    list-style: none;
+}
+
+.boardBody__column {
+    border: 1px solid green;
+    height: 100%;
+    
 }
