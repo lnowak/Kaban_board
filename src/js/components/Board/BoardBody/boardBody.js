@@ -12,7 +12,6 @@ class BoardBody extends Component {
             return(
                 <li data-id={e.id} key={e.id} className='boardBody__column'>
                     {e.name}
-                    <div>lorem20</div>
                     
                 </li>
             )
