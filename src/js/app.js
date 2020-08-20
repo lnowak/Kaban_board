@@ -1,11 +1,22 @@
 import React, {Component} from "react";
 import ReactDOM, { render } from 'react-dom';
-
 import './../sass/style.scss';
 
+import WelcomeInfo from './components/WelcomeInfo/welcomeInfo';
+import Board from './components/Board/board';
+
 class Kaban extends Component {
+    state = {
+
+    }
+    
     render() {
-        return <div>działa</div>
+        return (
+            <>
+                <WelcomeInfo  />
+                <Board />
+            </>
+        )
     }
 }
 const App = () => <Kaban />

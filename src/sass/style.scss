@@ -1,0 +1,48 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Lato", sans-serif;
+}
+
+#app {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+}
+
+.welcomeInfo {
+    height: 10%;
+    width: 100vw;
+    border: 1px black solid;
+}
+
+.board {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100vw;
+    height: 90%;
+    border: 1px solid red;
+}
+
+.board__section {
+    border: 1px solid blue;
+    height: 100%;
+}
+
+.board__userInfo {
+    width: 10%;
+}
+
+.board_shrtcuts {
+    width: 15%;
+}
+
+.board__body {
+    width: 75%;
+    overflow: auto;
+}
