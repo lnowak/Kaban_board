@@ -9,8 +9,8 @@ class Board extends Component {
  render() {
      return (
          <div className='board'>
-            <Shortcuts />
-            <BoardBody sendedState={this.props.sendedState}/>
+            <Shortcuts boardState={this.props.boardState} />
+            <BoardBody boardState={this.props.boardState} />
             <UserInfo />
          </div>
      )
