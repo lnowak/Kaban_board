@@ -15,8 +15,9 @@ class BoardBody extends Component {
                 </li>
             )
         })
+
         return (
-            <div className='board__section board__body'>
+            <div className={`board__section board__body ${this.props.boardState.menuActive || this.props.boardState.userActive ? 'board__body__one--active' : 'board__body--disactive'} ${(this.props.boardState.menuActive && this.props.boardState.userActive ? 'board__body__both--active' : '')} `}>
                 <ul>
                     {list}
                     <li className='boardBody__column'>Dodaj nową kartę</li>  
@@ -25,5 +26,5 @@ class BoardBody extends Component {
         )
     }
 }
-
+// (this.props.boardState.menuActive && this.props.boardState.userActive ? 'board__body__both--active' : 'board__body--disactive')
 export default BoardBody;

@@ -11,7 +11,7 @@ class Board extends Component {
          <div className='board'>
             <Shortcuts boardState={this.props.boardState} />
             <BoardBody boardState={this.props.boardState} />
-            <UserInfo />
+            <UserInfo boardState={this.props.boardState}/>
          </div>
      )
  }

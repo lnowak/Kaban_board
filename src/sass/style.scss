@@ -65,19 +65,29 @@
 
 .board__shortcuts {
     width: 15%;
-}
 
-.board__shortcuts--active {
-    display: block;
-}
+    &--active{
+        display: block;
+    }
 
-.board__shortcuts--disactive {
-    display: none;
+    &--disactive {
+        display: none;
+    }
 }
 
 .board__body {
-    width: 70%;
     overflow: auto;
+    &__one--active {
+        width: 85%;
+    }
+
+    &__both--active {
+        width: 70%;
+    }
+
+    &--disactive {
+        width: 100%;
+    }
 }
 
 .board__body ul {

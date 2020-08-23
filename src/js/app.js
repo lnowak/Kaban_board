@@ -17,23 +17,19 @@ class Kanban extends Component {
         menuActive: false,
         userActive: false,
     }
-    
-    createBoardCol = () => {
-        console.log('coś działa')
-    }
 
-    handleMenuActive = () => {
-        console.log('kliknąłem działa');
-        this.setState({
-            menuActive: !this.state.menuActive,
-        });
-        console.log(this.state.menuActive);
+    handleBoardElementActive = buttonId => {
+        if (buttonId === 1) {
+            this.setState({menuActive: !this.state.menuActive});
+        } else if (buttonId === 2) {
+            this.setState({userActive: !this.state.userActive});
+        }
     }
 
     render() {
         return (
             <>
-                <Header handleMenuActive={this.handleMenuActive} headerState={this.state} />
+                <Header handleBoardElementActive={this.handleBoardElementActive} headerState={this.state} />
                 <Board boardState={this.state}/>
             </>
         )
