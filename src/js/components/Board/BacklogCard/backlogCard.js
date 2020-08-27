@@ -7,10 +7,13 @@ class BacklogCard extends Component {
 
     render() {
         let boardList = this.props.boardState.board.map(e => {
-            return e.backlogActive ? 'board__backlog' : 'none'
-        })
+            return <div key={e.boardId} data-id={e.boardId} className={e.backlogActive ? 'board__backlog' : 'none'} ></div>
+        });
+        
         return (
-            <div className={boardList} ></div>
+            <>
+                {boardList}
+            </>
         )
     }
 }

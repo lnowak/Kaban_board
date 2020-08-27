@@ -15,7 +15,7 @@ class Kanban extends Component {
             boardCol: [
                 {id: 1, name: 'Sprint Backlog'},
                 {id: 2, name: 'In progress'},
-                {id: 3, name: 'QA'},
+                {id: 3, name: 'QA(testing)'},
                 {id: 4, name: 'Bug report'},
                 {id: 5, name: 'Done'},
             ],
@@ -27,28 +27,52 @@ class Kanban extends Component {
             this.setState({menuActive: !this.state.menuActive});
     }
 
-    showItemsList = () => {
+    showItemsList = (e) => {
+        let id = Number(e);
         let newBoardShortcutActive = this.state.board.map(e => {
-            e.boardShortcutActive = !e.boardShortcutActive
-            return e
+            if (id === e.boardId) {
+                e.boardShortcutActive = !e.boardShortcutActive
+                return e
+            }
         });
         this.setState({boardShortcutActive: newBoardShortcutActive})
     }
 
-    showBacklog = e => {
+    showBacklog = (e) => {
+        let id = Number(e);
         let newbacklogActive = this.state.board.map(e => {
-            return e.backlogActive = !e.backlogActive
-            // return e
+            if (id === e.boardId) {
+                e.backlogActive = !e.backlogActive
+                return e
+            } else {
+                e.backlogActive = false;
+                return e
+            }
         });
-        this.setState({backlogActive: newbacklogActive});
-        this.showItemsList();
+        console.log(newbacklogActive)
+        this.setState({board: newbacklogActive});
+        this.showItemsList(id);
+    }
+
+    addNewList = () => {
+        const newList = {
+            boardName: `Lista ${this.state.board.length+1}`,
+            boardId: this.state.board.length+1,
+            boardShortcutActive: false,
+            backlogActive: false,
+            boardCol: [],
+        };
+        this.setState({
+            board: [...this.state.board, newList],
+            
+        })
     }
 
     render() {
         return (
             <>
                 <Header handleBoardElementActive={this.handleBoardElementActive} headerState={this.state} />
-                <Board boardState={this.state} showItemsList={this.showItemsList} showBacklog={this.showBacklog} />
+                <Board boardState={this.state} showItemsList={this.showItemsList} showBacklog={this.showBacklog} addNewList={this.addNewList} />
             </>
         )
     }

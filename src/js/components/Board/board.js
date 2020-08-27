@@ -8,7 +8,7 @@ class Board extends Component {
     render() {
         return (
             <div className='board'>
-                <Shortcuts boardState={this.props.boardState} showItemsList={this.props.showItemsList} showBacklog={this.props.showBacklog} />
+                <Shortcuts boardState={this.props.boardState} showItemsList={this.props.showItemsList} showBacklog={this.props.showBacklog} addNewList={this.props.addNewList}/>
                 <BoardBody boardState={this.props.boardState} />
             </div>
         )
