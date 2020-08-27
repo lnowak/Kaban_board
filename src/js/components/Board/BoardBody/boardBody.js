@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import ReactDOM, { render } from 'react-dom';
 
-
+import BacklogCard from "../BacklogCard/backlogCard"
 
 class BoardBody extends Component {
     render() {
@@ -10,12 +10,15 @@ class BoardBody extends Component {
             return item.boardCol.map(item => {return <li data-id={item.id} key={item.id} className='boardBody__column'>{item.name}</li>})
         })
 
+        // let 
+
         return (
-            <div className={`board__section board__body ${this.props.boardState.menuActive || this.props.boardState.userActive ? 'board__body__one--active' : 'board__body--disactive'} ${(this.props.boardState.menuActive && this.props.boardState.userActive ? 'board__body__both--active' : '')} `}>
+            <div className={`board__section board__body ${this.props.boardState.menuActive ? 'board__body--active' : 'board__body--disactive'} `}>
                 <ul>
                     {list}
-                    <li className='boardBody__column'>Dodaj nową kartę</li>  
+                    <li className='boardBody__column'>Dodaj nową kartę</li> 
                 </ul>
+                <BacklogCard boardState={this.props.boardState} />
             </div>
         )
     }

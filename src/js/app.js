@@ -11,6 +11,7 @@ class Kanban extends Component {
             boardName: 'Lista 1',
             boardId: 1,
             boardShortcutActive: false,
+            backlogActive: false,
             boardCol: [
                 {id: 1, name: 'Sprint Backlog'},
                 {id: 2, name: 'In progress'},
@@ -28,24 +29,32 @@ class Kanban extends Component {
 
     showItemsList = () => {
         let newBoardShortcutActive = this.state.board.map(e => {
-            return e.boardShortcutActive = !e.boardShortcutActive
+            e.boardShortcutActive = !e.boardShortcutActive
+            return e
         });
-        this.setState({
-            boardShortcutActive: newBoardShortcutActive,
-        })
+        this.setState({boardShortcutActive: newBoardShortcutActive})
+    }
+
+    showBacklog = e => {
+        let newbacklogActive = this.state.board.map(e => {
+            return e.backlogActive = !e.backlogActive
+            // return e
+        });
+        this.setState({backlogActive: newbacklogActive});
+        this.showItemsList();
     }
 
     render() {
         return (
             <>
                 <Header handleBoardElementActive={this.handleBoardElementActive} headerState={this.state} />
-                <Board boardState={this.state} showItemsList={this.showItemsList} />
+                <Board boardState={this.state} showItemsList={this.showItemsList} showBacklog={this.showBacklog} />
             </>
         )
     }
 }
 const App = () => <Kanban />
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', () => {
     ReactDOM.render(<App />, document.getElementById("app"));
 });

@@ -60,18 +60,14 @@
 }
 
 .board__shortcuts {
-    width: 20%;
-    display: flex;
+    display: none;
 
     &--active{
+        width: 15%;
         display: block;
         background-color: rgba(255, 255, 255, 0.8);
         min-height: 50px;
         height: fit-content;
-    }
-
-    &--disactive {
-        display: none;
     }
 }
 
@@ -87,8 +83,10 @@
 
 .board__body {
     overflow: auto;
-    &__one--active {
-        width: 80%;
+    display: flex;
+    
+    &--active {
+        width: 85%;
     }
 
     &--disactive {
@@ -106,7 +104,16 @@
 .boardBody__column {
     border: 1px solid green;
     height: 100%;
-    
+    width: 200px;
 }
 
-.none { display: none}
+.board__backlog {
+    height: 100%;
+    width: 100%;
+    background-color: red;
+    position: fixed;
+    z-index: 2;
+}
+
+.none { 
+    display: none;}
