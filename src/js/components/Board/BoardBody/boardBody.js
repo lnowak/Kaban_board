@@ -6,14 +6,8 @@ import ReactDOM, { render } from 'react-dom';
 class BoardBody extends Component {
     render() {
 
-        let list = this.props.boardState.boardCol.map(e=> {
-            // console.log(e);
-            return(
-                <li data-id={e.id} key={e.id} className='boardBody__column'>
-                    {e.name}
-                    
-                </li>
-            )
+        let list = this.props.boardState.board.map(item=> {
+            return item.boardCol.map(item => {return <li data-id={item.id} key={item.id} className='boardBody__column'>{item.name}</li>})
         })
 
         return (
@@ -26,5 +20,5 @@ class BoardBody extends Component {
         )
     }
 }
-// (this.props.boardState.menuActive && this.props.boardState.userActive ? 'board__body__both--active' : 'board__body--disactive')
+
 export default BoardBody;

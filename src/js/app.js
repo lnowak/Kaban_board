@@ -7,30 +7,39 @@ import Board from './components/Board/board';
 
 class Kanban extends Component {
     state = {
-        boardCol: [
-            {id: 1, name: 'Sprint Backlog'},
-            {id: 2, name: 'In progress'},
-            {id: 3, name: 'QA'},
-            {id: 4, name: 'Bug report'},
-            {id: 5, name: 'Done'}
-        ],
+        board: [{
+            boardName: 'Lista 1',
+            boardId: 1,
+            boardShortcutActive: false,
+            boardCol: [
+                {id: 1, name: 'Sprint Backlog'},
+                {id: 2, name: 'In progress'},
+                {id: 3, name: 'QA'},
+                {id: 4, name: 'Bug report'},
+                {id: 5, name: 'Done'},
+            ],
+        },],
         menuActive: false,
-        userActive: false,
     }
 
-    handleBoardElementActive = buttonId => {
-        if (buttonId === 1) {
+    handleBoardElementActive = () => {
             this.setState({menuActive: !this.state.menuActive});
-        } else if (buttonId === 2) {
-            this.setState({userActive: !this.state.userActive});
-        }
+    }
+
+    showItemsList = () => {
+        let newBoardShortcutActive = this.state.board.map(e => {
+            return e.boardShortcutActive = !e.boardShortcutActive
+        });
+        this.setState({
+            boardShortcutActive: newBoardShortcutActive,
+        })
     }
 
     render() {
         return (
             <>
                 <Header handleBoardElementActive={this.handleBoardElementActive} headerState={this.state} />
-                <Board boardState={this.state}/>
+                <Board boardState={this.state} showItemsList={this.showItemsList} />
             </>
         )
     }
