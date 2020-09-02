@@ -37,6 +37,9 @@ background: #af8d8d;
     background-size: cover;
 }
 
+.btn {
+    width: 10%;
+}
 .header {
     display: flex;
     justify-content: space-between;
@@ -92,11 +95,18 @@ background: #af8d8d;
     }
 }
 
-.board__shortcuts > ul > li {
+.board__shortcuts > ul {
     display: flex;
     justify-content: space-around;
     align-items: flex-start;
     flex-direction: column;
+}
+
+.board__shortcuts > ul > li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
     margin: 10px 10px 10px 10px;
     padding: 10px;
     color: rgb(255, 255, 255);
@@ -106,6 +116,11 @@ background: #af8d8d;
 .board__shortcuts > ul > li:hover {
     background-color: rgba(255, 255, 255, 0.8);
     color: rgb(0, 0, 0);
+}
+
+.fa-edit {
+    height: 15px;
+    width: 15px;
 }
 
 .board__body {

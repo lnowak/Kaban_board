@@ -11,60 +11,55 @@ class Kanban extends Component {
             boardName: 'Lista 1',
             boardId: 1,
             boardShortcutActive: false,
-            backlogActive: false,
+            boardShortcutEditActive: false,
             boardCol: [
-                {id: 1, name: 'Sprint Backlog'},
-                {id: 2, name: 'In progress'},
-                {id: 3, name: 'QA(testing)'},
-                {id: 4, name: 'Bug report'},
-                {id: 5, name: 'Done'},
+                {id: 1, name: 'Project Backlog'},
+                {id: 2, name: 'Sprint Backlog'},
+                {id: 3, name: 'In progress'},
+                {id: 4, name: 'QA(testing)'},
+                {id: 5, name: 'Bug report'},
+                {id: 6, name: 'Done'},
             ],
         },],
         menuActive: false,
     }
 
     handleBoardElementActive = () => {
-            this.setState({menuActive: !this.state.menuActive});
+        this.setState({menuActive: !this.state.menuActive});
     }
-
+    
     showItemsList = (e) => {
         let id = Number(e);
         let newBoardShortcutActive = this.state.board.map(e => {
             if (id === e.boardId) {
-                e.boardShortcutActive = !e.boardShortcutActive
-                return e
+                e.boardShortcutActive = !e.boardShortcutActive; 
             }
+            return e
         });
-        this.setState({boardShortcutActive: newBoardShortcutActive})
+        this.setState({board: newBoardShortcutActive});
     }
-
-    showBacklog = (e) => {
+    
+    handleEditListItem = (e) => {
         let id = Number(e);
-        let newbacklogActive = this.state.board.map(e => {
+        let editActive = this.state.board.map(e => {
             if (id === e.boardId) {
-                e.backlogActive = !e.backlogActive
-                return e
-            } else {
-                e.backlogActive = false;
-                return e
+                e.boardShortcutEditActive = true; 
             }
-        });
-        console.log(newbacklogActive)
-        this.setState({board: newbacklogActive});
-        this.showItemsList(id);
+            return e
+        })
+        this.setState({board: editActive})
     }
-
+    
     addNewList = () => {
         const newList = {
             boardName: `Lista ${this.state.board.length+1}`,
             boardId: this.state.board.length+1,
             boardShortcutActive: false,
-            backlogActive: false,
+            boardShortcutEditActive: false,
             boardCol: [],
         };
         this.setState({
             board: [...this.state.board, newList],
-            
         })
     }
 
@@ -72,7 +67,7 @@ class Kanban extends Component {
         return (
             <>
                 <Header handleBoardElementActive={this.handleBoardElementActive} headerState={this.state} />
-                <Board boardState={this.state} showItemsList={this.showItemsList} showBacklog={this.showBacklog} addNewList={this.addNewList} />
+                <Board boardState={this.state} showItemsList={this.showItemsList} handleEditListItem={this.handleEditListItem} addNewList={this.addNewList} />
             </>
         )
     }
