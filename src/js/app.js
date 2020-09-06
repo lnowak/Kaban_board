@@ -126,6 +126,18 @@ class Kanban extends Component {
         console.log(this.state.board);
     }
 
+    addNewColumn = () => {
+        const newCol = {
+            id: this.state.board.map(e => e.boardCol.length+1)[0],
+            name: 'dsa'
+        };
+        const newBoard = this.state.board.map(e => {
+            e.boardCol = [...e.boardCol, newCol]
+            return e
+        })
+        this.setState({board: newBoard})
+    }
+
     render() {
         const background = this.state.board.map(item => {
             return <div key={item.boardId} data-id={item.boardId} className={`${item.boardShortcutEditActive ? 'fullscreen__background' : 'none' }`} onClick={this.backgroundOff}></div>
@@ -133,7 +145,7 @@ class Kanban extends Component {
         return (
             <>
                 <Header handleBoardElementActive={this.handleBoardElementActive} headerState={this.state} />
-                <Board boardState={this.state} showItemsList={this.showItemsList} handleEditListItem={this.handleEditListItem} addNewList={this.addNewList} listNameChange={this.listNameChange} listNameSubmit={this.listNameSubmit} listRemove={this.listRemove} showListBody={this.showListBody} />
+                <Board boardState={this.state} showItemsList={this.showItemsList} handleEditListItem={this.handleEditListItem} addNewList={this.addNewList} listNameChange={this.listNameChange} listNameSubmit={this.listNameSubmit} listRemove={this.listRemove} showListBody={this.showListBody} addNewColumn={this.addNewColumn} />
                 {background}
             </>
         )
