@@ -13,6 +13,7 @@ class Kanban extends Component {
             boardShortcutActive: false,
             boardShortcutEditActive: false,
             boardNewName: '',
+            boardBodyActive: true,
             boardCol: [
                 {id: 1, name: 'Project Backlog'},
                 {id: 2, name: 'Sprint Backlog'},
@@ -58,6 +59,7 @@ class Kanban extends Component {
             boardShortcutActive: false,
             boardShortcutEditActive: false,
             boardNewName: '',
+            boardBodyActive: false,
             boardCol: [],
         };
         this.setState({board: [...this.state.board, newList]})
@@ -111,6 +113,19 @@ class Kanban extends Component {
         this.setState({board: newBoard});
     }
 
+    showListBody = (id) => {
+        const newBoard = this.state.board.map( item => {
+            if (Number(id) === item.boardId) {
+                item.boardBodyActive = true
+            } else {
+                item.boardBodyActive = false
+            }
+            return item
+        })
+        this.setState({board: newBoard});
+        console.log(this.state.board);
+    }
+
     render() {
         const background = this.state.board.map(item => {
             return <div key={item.boardId} data-id={item.boardId} className={`${item.boardShortcutEditActive ? 'fullscreen__background' : 'none' }`} onClick={this.backgroundOff}></div>
@@ -118,7 +133,7 @@ class Kanban extends Component {
         return (
             <>
                 <Header handleBoardElementActive={this.handleBoardElementActive} headerState={this.state} />
-                <Board boardState={this.state} showItemsList={this.showItemsList} handleEditListItem={this.handleEditListItem} addNewList={this.addNewList} listNameChange={this.listNameChange} listNameSubmit={this.listNameSubmit} listRemove={this.listRemove} />
+                <Board boardState={this.state} showItemsList={this.showItemsList} handleEditListItem={this.handleEditListItem} addNewList={this.addNewList} listNameChange={this.listNameChange} listNameSubmit={this.listNameSubmit} listRemove={this.listRemove} showListBody={this.showListBody} />
                 {background}
             </>
         )

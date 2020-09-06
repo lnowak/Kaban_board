@@ -4,15 +4,16 @@ import ReactDOM, { render } from 'react-dom';
 class BoardBody extends Component {
     render() {
 
-        let list = this.props.boardState.board.map(item=> {
-            return item.boardCol.map(item => {return <li data-id={item.id} key={item.id} className='boardBody__column'>{item.name}</li>})
-        })
+        let list = this.props.boardState.board.map(e=> {
+            return e.boardCol.map(item => {
+                return  <li data-id={item.id} key={item.id} className={`boardBody__column ${e.boardBodyActive ? '' : 'none'} ` }>{item.name}</li>})
+            })
 
         return (
             <div className={`board__section board__body ${this.props.boardState.menuActive ? 'board__body--active' : ''} `}>
                 <ul>
                     {list}
-                    <li className='boardBody__column'>Dodaj nową kartę</li> 
+                    <li className={`${this.props.boardState.board.length > 0 ? 'boardBody__column' : 'none' }`}>Dodaj nową kartę</li> 
                 </ul>
             </div>
         )
