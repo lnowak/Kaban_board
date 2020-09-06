@@ -40,6 +40,16 @@ background: #af8d8d;
 .btn {
     width: 10%;
 }
+
+.fullscreen__background{
+    background-color: rgba(0, 0, 0, 0.7);
+    display: block;
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    z-index: 2;
+}
+
 .header {
     display: flex;
     justify-content: space-between;
@@ -73,7 +83,6 @@ background: #af8d8d;
     align-items: flex-start;
     width: 100vw;
     height: 95%;
-    // border: 1px solid red;
 }
 
 .board__section {
@@ -83,7 +92,6 @@ background: #af8d8d;
 .board__shortcuts {
     display: none;
     margin-left: 10px;
-    overflow: auto;
     max-height: 94vh;
 
     &--active{
@@ -95,6 +103,18 @@ background: #af8d8d;
     }
 }
 
+.board__shortcuts__mainList {
+    width: 100%;
+}
+
+.board__shortcuts__mainList_list {
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    max-height: 87.6vh;
+}
+
+
 .board__shortcuts > ul {
     display: flex;
     justify-content: space-around;
@@ -102,10 +122,11 @@ background: #af8d8d;
     flex-direction: column;
 }
 
-.board__shortcuts > ul > li {
+.board__shortcuts__listItem {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: 8%;
     width: 90%;
     margin: 10px 10px 10px 10px;
     padding: 10px;
@@ -113,14 +134,32 @@ background: #af8d8d;
     cursor: pointer;
 }
 
-.board__shortcuts > ul > li:hover {
+.board__shortcuts__listItem:hover {
     background-color: rgba(255, 255, 255, 0.8);
     color: rgb(0, 0, 0);
 }
 
+.board__shortcuts__listItem--editActive {
+    z-index: 3;
+}
+
+.board__shortcuts__form {
+    display: flex;
+    flex-direction: column;
+}
+
 .fa-edit {
-    height: 15px;
-    width: 15px;
+    height: 20px;
+    width: 20px;
+}
+
+.fa-edit:hover {
+    background-color: rgb(223, 211, 211);
+}
+
+.board__shortcuts__form {
+    display: flex;
+
 }
 
 .board__body {

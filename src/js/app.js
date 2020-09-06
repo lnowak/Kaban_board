@@ -12,6 +12,7 @@ class Kanban extends Component {
             boardId: 1,
             boardShortcutActive: false,
             boardShortcutEditActive: false,
+            boardNewName: '',
             boardCol: [
                 {id: 1, name: 'Project Backlog'},
                 {id: 2, name: 'Sprint Backlog'},
@@ -43,7 +44,7 @@ class Kanban extends Component {
         let id = Number(e);
         let editActive = this.state.board.map(e => {
             if (id === e.boardId) {
-                e.boardShortcutEditActive = true; 
+                e.boardShortcutEditActive = !e.boardShortcutEditActive; 
             }
             return e
         })
@@ -56,18 +57,69 @@ class Kanban extends Component {
             boardId: this.state.board.length+1,
             boardShortcutActive: false,
             boardShortcutEditActive: false,
+            boardNewName: '',
             boardCol: [],
         };
-        this.setState({
-            board: [...this.state.board, newList],
+        this.setState({board: [...this.state.board, newList]})
+    }
+
+    backgroundOff = (e) => {
+        let id = Number(e.target.dataset.id);
+        const newBoard = this.state.board.map(item => {
+            if (id === item.boardId) {
+                item.boardShortcutActive = !item.boardShortcutActive;
+                item.boardShortcutEditActive = false;
+                item.boardNewName = '';
+            }
+            return item
         })
+        this.setState({board: newBoard})
+    }
+
+    listNameChange = (id, value) => {
+        let newBoard = this.state.board.map(e => {
+            if(Number(id) === e.boardId) {
+                e.boardNewName = value;
+            }
+            return e
+        })
+        this.setState({board: newBoard})
+    }
+
+    listNameSubmit = (e, id) => {
+        e.preventDefault();
+        let newBoard = this.state.board.map(item => {
+            if (Number(id) === item.boardId && item.boardNewName.length > 0) {
+                item.boardName = item.boardNewName;
+                item.boardShortcutEditActive = false;
+                item.boardShortcutActive = false;
+                item.boardNewName = '';
+            }
+            return item
+        });
+        this.setState({board: newBoard});
+    }
+
+    listRemove = (e, id) => {
+        e.preventDefault();
+        const newBoard = this.state.board.filter(item => {
+            if (Number(id) !== item.boardId) {
+                item.boardId !== item.boardId
+                return item
+            }
+        })
+        this.setState({board: newBoard});
     }
 
     render() {
+        const background = this.state.board.map(item => {
+            return <div key={item.boardId} data-id={item.boardId} className={`${item.boardShortcutEditActive ? 'fullscreen__background' : 'none' }`} onClick={this.backgroundOff}></div>
+        });
         return (
             <>
                 <Header handleBoardElementActive={this.handleBoardElementActive} headerState={this.state} />
-                <Board boardState={this.state} showItemsList={this.showItemsList} handleEditListItem={this.handleEditListItem} addNewList={this.addNewList} />
+                <Board boardState={this.state} showItemsList={this.showItemsList} handleEditListItem={this.handleEditListItem} addNewList={this.addNewList} listNameChange={this.listNameChange} listNameSubmit={this.listNameSubmit} listRemove={this.listRemove} />
+                {background}
             </>
         )
     }

@@ -9,7 +9,7 @@ class BoardBody extends Component {
         })
 
         return (
-            <div className={`board__section board__body ${this.props.boardState.menuActive ? 'board__body--active' : 'board__body--disactive'} `}>
+            <div className={`board__section board__body ${this.props.boardState.menuActive ? 'board__body--active' : ''} `}>
                 <ul>
                     {list}
                     <li className='boardBody__column'>Dodaj nową kartę</li> 
