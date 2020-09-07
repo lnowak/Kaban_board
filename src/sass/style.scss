@@ -206,4 +206,12 @@ background: #af8d8d;
 }
 
 .none { 
-    display: none;}
+    display: none;
+}
+
+.testlist {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}

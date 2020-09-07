@@ -15,12 +15,92 @@ class Kanban extends Component {
             boardNewName: '',
             boardBodyActive: true,
             boardCol: [
-                {id: 1, name: 'Project Backlog'},
-                {id: 2, name: 'Sprint Backlog'},
-                {id: 3, name: 'In progress'},
-                {id: 4, name: 'QA(testing)'},
-                {id: 5, name: 'Bug report'},
-                {id: 6, name: 'Done'},
+                {
+                    id: 1, 
+                    name: 'Project Backlog',
+                    tasks: [
+                        {
+                            id: 1,
+                            taskName: 'Podstawowa konfiguracja'
+                        },
+                        {
+                            id: 2,
+                            taskName: 'Strona główna'
+                        },
+                        {
+                            id: 3,
+                            taskName: 'Logowanie'
+                        },
+                        {
+                            id: 4,
+                            taskName: 'Rejestracja'
+                        },
+                        {
+                            id: 5,
+                            taskName: 'Wylogowanie'
+                        },
+                        {
+                            id: 6,
+                            taskName: 'Formularz'
+                        },
+                    ],
+                    newTask: '',
+                },
+                {
+                    id: 2, 
+                    name: 'Sprint Backlog',
+                    tasks: [
+                        {
+                            id: 1,
+                            taskName: 'nazwa'
+                        }
+                    ],
+                    newTask: '',
+                },
+                {
+                    id: 3, 
+                    name: 'In progress',
+                    tasks: [
+                        {
+                            id: 1,
+                            taskName: 'nazwa'
+                        }
+                    ],
+                    newTask: '',
+                },
+                {
+                    id: 4, 
+                    name: 'QA (Testing)',
+                    tasks: [
+                        {
+                            id: 1,
+                            taskName: 'nazwa'
+                        }
+                    ],
+                    newTask: '',
+                },
+                {
+                    id: 5, 
+                    name: 'Bug report',
+                    tasks: [
+                        {
+                            id: 1,
+                            taskName: 'nazwa'
+                        }
+                    ],
+                    newTask: '',
+                },
+                {
+                    id: 6, 
+                    name: 'Done',
+                    tasks: [
+                        {
+                            id: 1,
+                            taskName: 'nazwa'
+                        }
+                    ],
+                    newTask: '',
+                },
             ],
         },],
         menuActive: false,
@@ -127,12 +207,21 @@ class Kanban extends Component {
     }
 
     addNewColumn = () => {
+        let columnId = this.state.board.map(e => {
+            if (e.boardBodyActive) {
+                return e.boardCol.length+1
+            }
+        })
         const newCol = {
-            id: this.state.board.map(e => e.boardCol.length+1)[0],
-            name: 'dsa'
+            id: columnId,
+            name: 'dsa',
+            tasks: [],
+            newTask: ''
         };
         const newBoard = this.state.board.map(e => {
-            e.boardCol = [...e.boardCol, newCol]
+            if (e.boardBodyActive) {
+                e.boardCol = [...e.boardCol, newCol]
+            }
             return e
         })
         this.setState({board: newBoard})
