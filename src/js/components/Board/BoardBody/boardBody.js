@@ -11,7 +11,7 @@ class BoardBody extends Component {
         let list = this.props.boardState.board.map(e=> {
             return (e.boardCol.map(item => {
                 console.log(item.tasks.map(ie => ie.taskName))
-                let list = item.tasks.map(ie => <li key={ie.id}>{ie.taskName}</li>)
+                let list = item.tasks.map(ie => <li key={ie.id} className='test12' >{ie.taskName}</li>)
                 return (
                     <li data-id={item.id} key={`${item.id}`} className={`boardBody__column ${e.boardBodyActive ? '' : 'none'} ` }>
                         {item.name}

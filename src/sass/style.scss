@@ -193,7 +193,7 @@ background: #af8d8d;
     background-color: #eeeded;
     min-height: 35px;
     height: fit-content;
-    width: 200px;
+    width: 270px;
     margin: 0 10px 0 10px;
 }
 
@@ -214,4 +214,16 @@ background: #af8d8d;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+    width: 100%;
+}
+
+.test12 {
+    border-radius: 5px;
+    width: 100%;
+    min-height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(255, 255, 255);
+    margin-top: 10px;
 }
