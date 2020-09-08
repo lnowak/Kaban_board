@@ -192,17 +192,13 @@ class Kanban extends Component {
     }
 
     addNewColumn = () => {
-        let columnId = this.state.board.map(e => {
-            if (e.boardBodyActive) {
-                return e.boardCol.length + 1
-            }
-        });
         const newCol = {
-            id: columnId,
+            id: this.state.board[Number(this.state.board.length)-1].boardCol.length+1,
             name: 'dsa',
             tasks: [],
             newTask: ''
         };
+        console.log(this.state.board[Number(this.state.board.length)-1].boardCol.length)
         const newBoard = this.state.board.map(e => {
             if (e.boardBodyActive) {
                 e.boardCol = [...e.boardCol, newCol]
@@ -214,11 +210,9 @@ class Kanban extends Component {
 
     openNewInputAddForm = (id, boardId) => {
         const newBoard = this.state.board.map(item1 => {
-            // console.log(item1)
             if (Number(boardId) === item1.boardId) {
-                // console.log(item1)
                 item1.boardCol.map(item2 => {
-                    console.log(item2.id, id, boardId, item1.boardId)
+                    // console.log(item2.id, id, boardId, item1.boardId)
                     if (Number(id) === item2.id) {
                         item2.openNewInputAddForm = !item2.openNewInputAddForm;
                     }
@@ -243,17 +237,30 @@ class Kanban extends Component {
         this.setState({ board: newBoard })
     }
 
-    newColumnItemNameSave = e => {
+    newColumnItemNameSave = (e, id) => {
         e.preventDefault();
         const newColumnItem = {
-            id: Number(this.state.board.map(item1 => { item1.boardCol.map(item2 => item2.tasks.length + 1) })),
+            id: Number(this.state.board[Number(this.state.board.length)-1].boardCol.length),
             taskName: this.state.board.map(item1 => { item1.boardCol.map(item2 => item2.newTask) })
         }
+        let a = this.state.board.map(i1 => {
+            if (Number(id) === i1.boardId) {
+                i1.boardCol.map(i2 => {
+                    if (Number(id) === i2.id) {
+                        return i2.newTask
+                    }
+                })
+            }
+        })
+        console.log(a, id, this.state.board[Number(this.state.board.length)-1].boardCol.length);
         const newBoard = this.state.board.map(item1 => {
             item1.boardCol.map(item2 => {
-                item2.tasks
+                item2.tasks = [...item2.tasks, newColumnItem];
+                return item2
             })
+            return item1
         })
+        this.setState({board: newBoard})
     }
 
     render() {

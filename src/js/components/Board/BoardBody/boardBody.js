@@ -20,7 +20,9 @@ class BoardBody extends Component {
     }
 
     newColumnItemNameSave = e => {
-        this.props.newColumnItemNameSave(e);
+        const id = e.target.dataset.id;
+        this.props.newColumnItemNameSave(e, id);
+
     }
 
     render() {
@@ -34,7 +36,7 @@ class BoardBody extends Component {
                     button = <li className={`test12`} data-boardid={e.boardId} data-id={item.id} onClick={this.openNewInputAddForm}>Dodaj nowy element</li>;
                 } else {
                     button = (
-                        <form onSubmit={this.newColumnItemNameSave}>
+                        <form data-id={item.id} onSubmit={this.newColumnItemNameSave}>
                             <input data-id={item.id} placeholder='Podaj tytuł karty' value={item.newTask} onChange={this.newColumnItemInputChange}/>
                             <div className='buttons'>
                                 <input data-id={item.id} type='submit' value='Dodaj'/>
