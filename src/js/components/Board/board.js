@@ -9,7 +9,7 @@ class Board extends Component {
         return (
             <div className='board'>
                 <Shortcuts boardState={this.props.boardState} showItemsList={this.props.showItemsList} handleEditListItem={this.props.handleEditListItem} addNewList={this.props.addNewList} listNameChange={this.props.listNameChange} listNameSubmit={this.props.listNameSubmit} listRemove={this.props.listRemove} showListBody={this.props.showListBody} />
-                <BoardBody boardState={this.props.boardState} addNewColumn={this.props.addNewColumn} />
+                <BoardBody boardState={this.props.boardState} addNewColumn={this.props.addNewColumn} openNewInputAddForm={this.props.openNewInputAddForm} newColumnItemInputChange={this.props.newColumnItemInputChange} newColumnItemNameSave={this.props.newColumnItemNameSave}/>
             </div>
         )
     }

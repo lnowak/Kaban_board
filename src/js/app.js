@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import ReactDOM, { render } from 'react-dom';
 import './../sass/style.scss';
 
@@ -16,39 +16,21 @@ class Kanban extends Component {
             boardBodyActive: true,
             boardCol: [
                 {
-                    id: 1, 
+                    id: 1,
                     name: 'Project Backlog',
+                    openNewInputAddForm: false,
                     tasks: [
                         {
                             id: 1,
-                            taskName: 'Podstawowa konfiguracja'
-                        },
-                        {
-                            id: 2,
-                            taskName: 'Strona główna'
-                        },
-                        {
-                            id: 3,
-                            taskName: 'Logowanie'
-                        },
-                        {
-                            id: 4,
-                            taskName: 'Rejestracja'
-                        },
-                        {
-                            id: 5,
-                            taskName: 'Wylogowanie'
-                        },
-                        {
-                            id: 6,
-                            taskName: 'Formularz'
+                            taskName: 'Podstawowa konfiguracja',
                         },
                     ],
                     newTask: '',
                 },
                 {
-                    id: 2, 
+                    id: 2,
                     name: 'Sprint Backlog',
+                    openNewInputAddForm: false,
                     tasks: [
                         {
                             id: 1,
@@ -58,8 +40,9 @@ class Kanban extends Component {
                     newTask: '',
                 },
                 {
-                    id: 3, 
+                    id: 3,
                     name: 'In progress',
+                    openNewInputAddForm: false,
                     tasks: [
                         {
                             id: 1,
@@ -69,8 +52,9 @@ class Kanban extends Component {
                     newTask: '',
                 },
                 {
-                    id: 4, 
+                    id: 4,
                     name: 'QA (Testing)',
+                    openNewInputAddForm: false,
                     tasks: [
                         {
                             id: 1,
@@ -80,8 +64,9 @@ class Kanban extends Component {
                     newTask: '',
                 },
                 {
-                    id: 5, 
+                    id: 5,
                     name: 'Bug report',
+                    openNewInputAddForm: false,
                     tasks: [
                         {
                             id: 1,
@@ -91,8 +76,9 @@ class Kanban extends Component {
                     newTask: '',
                 },
                 {
-                    id: 6, 
+                    id: 6,
                     name: 'Done',
+                    openNewInputAddForm: false,
                     tasks: [
                         {
                             id: 1,
@@ -107,42 +93,42 @@ class Kanban extends Component {
     }
 
     handleBoardElementActive = () => {
-        this.setState({menuActive: !this.state.menuActive});
+        this.setState({ menuActive: !this.state.menuActive });
     }
-    
+
     showItemsList = (e) => {
         let id = Number(e);
         let newBoardShortcutActive = this.state.board.map(e => {
             if (id === e.boardId) {
-                e.boardShortcutActive = !e.boardShortcutActive; 
+                e.boardShortcutActive = !e.boardShortcutActive;
             }
             return e
         });
-        this.setState({board: newBoardShortcutActive});
+        this.setState({ board: newBoardShortcutActive });
     }
-    
+
     handleEditListItem = (e) => {
         let id = Number(e);
         let editActive = this.state.board.map(e => {
             if (id === e.boardId) {
-                e.boardShortcutEditActive = !e.boardShortcutEditActive; 
+                e.boardShortcutEditActive = !e.boardShortcutEditActive;
             }
             return e
         })
-        this.setState({board: editActive})
+        this.setState({ board: editActive })
     }
-    
+
     addNewList = () => {
         const newList = {
-            boardName: `Lista ${this.state.board.length+1}`,
-            boardId: this.state.board.length+1,
+            boardName: `Lista ${this.state.board.length + 1}`,
+            boardId: this.state.board.length + 1,
             boardShortcutActive: false,
             boardShortcutEditActive: false,
             boardNewName: '',
             boardBodyActive: false,
             boardCol: [],
         };
-        this.setState({board: [...this.state.board, newList]})
+        this.setState({ board: [...this.state.board, newList] })
     }
 
     backgroundOff = (e) => {
@@ -155,17 +141,17 @@ class Kanban extends Component {
             }
             return item
         })
-        this.setState({board: newBoard})
+        this.setState({ board: newBoard })
     }
 
     listNameChange = (id, value) => {
         let newBoard = this.state.board.map(e => {
-            if(Number(id) === e.boardId) {
+            if (Number(id) === e.boardId) {
                 e.boardNewName = value;
             }
             return e
         })
-        this.setState({board: newBoard})
+        this.setState({ board: newBoard })
     }
 
     listNameSubmit = (e, id) => {
@@ -179,7 +165,7 @@ class Kanban extends Component {
             }
             return item
         });
-        this.setState({board: newBoard});
+        this.setState({ board: newBoard });
     }
 
     listRemove = (e, id) => {
@@ -190,11 +176,11 @@ class Kanban extends Component {
                 return item
             }
         })
-        this.setState({board: newBoard});
+        this.setState({ board: newBoard });
     }
 
     showListBody = (id) => {
-        const newBoard = this.state.board.map( item => {
+        const newBoard = this.state.board.map(item => {
             if (Number(id) === item.boardId) {
                 item.boardBodyActive = true
             } else {
@@ -202,16 +188,15 @@ class Kanban extends Component {
             }
             return item
         })
-        this.setState({board: newBoard});
-        console.log(this.state.board);
+        this.setState({ board: newBoard });
     }
 
     addNewColumn = () => {
         let columnId = this.state.board.map(e => {
             if (e.boardBodyActive) {
-                return e.boardCol.length+1
+                return e.boardCol.length + 1
             }
-        })
+        });
         const newCol = {
             id: columnId,
             name: 'dsa',
@@ -224,17 +209,61 @@ class Kanban extends Component {
             }
             return e
         })
-        this.setState({board: newBoard})
+        this.setState({ board: newBoard });
+    }
+
+    openNewInputAddForm = (id, boardId) => {
+        const newBoard = this.state.board.map(item1 => {
+            // console.log(item1)
+            if (Number(boardId) === item1.boardId) {
+                // console.log(item1)
+                item1.boardCol.map(item2 => {
+                    console.log(item2.id, id, boardId, item1.boardId)
+                    if (Number(id) === item2.id) {
+                        item2.openNewInputAddForm = !item2.openNewInputAddForm;
+                    }
+                    return item2
+                })
+            }
+            return item1
+        });
+        this.setState({ board: newBoard })
+    }
+
+    newColumnItemInputChange = (id, value) => {
+        const newBoard = this.state.board.map(item1 => {
+            item1.boardCol.map(item2 => {
+                if (Number(id) === item2.id) {
+                    item2.newTask = value;
+                }
+                return item2
+            });
+            return item1
+        });
+        this.setState({ board: newBoard })
+    }
+
+    newColumnItemNameSave = e => {
+        e.preventDefault();
+        const newColumnItem = {
+            id: Number(this.state.board.map(item1 => { item1.boardCol.map(item2 => item2.tasks.length + 1) })),
+            taskName: this.state.board.map(item1 => { item1.boardCol.map(item2 => item2.newTask) })
+        }
+        const newBoard = this.state.board.map(item1 => {
+            item1.boardCol.map(item2 => {
+                item2.tasks
+            })
+        })
     }
 
     render() {
         const background = this.state.board.map(item => {
-            return <div key={item.boardId} data-id={item.boardId} className={`${item.boardShortcutEditActive ? 'fullscreen__background' : 'none' }`} onClick={this.backgroundOff}></div>
+            return <div key={item.boardId} data-id={item.boardId} className={`${item.boardShortcutEditActive ? 'fullscreen__background' : 'none'}`} onClick={this.backgroundOff}></div>
         });
         return (
             <>
                 <Header handleBoardElementActive={this.handleBoardElementActive} headerState={this.state} />
-                <Board boardState={this.state} showItemsList={this.showItemsList} handleEditListItem={this.handleEditListItem} addNewList={this.addNewList} listNameChange={this.listNameChange} listNameSubmit={this.listNameSubmit} listRemove={this.listRemove} showListBody={this.showListBody} addNewColumn={this.addNewColumn} />
+                <Board boardState={this.state} showItemsList={this.showItemsList} handleEditListItem={this.handleEditListItem} addNewList={this.addNewList} listNameChange={this.listNameChange} listNameSubmit={this.listNameSubmit} listRemove={this.listRemove} showListBody={this.showListBody} addNewColumn={this.addNewColumn} openNewInputAddForm={this.openNewInputAddForm} newColumnItemInputChange={this.newColumnItemInputChange} newColumnItemNameSave={this.newColumnItemNameSave} />
                 {background}
             </>
         )
