@@ -90,6 +90,7 @@ class Kanban extends Component {
             ],
         },],
         menuActive: false,
+        newTask: '',
     }
 
     handleBoardElementActive = () => {
@@ -225,42 +226,55 @@ class Kanban extends Component {
     }
 
     newColumnItemInputChange = (id, value) => {
-        const newBoard = this.state.board.map(item1 => {
-            item1.boardCol.map(item2 => {
-                if (Number(id) === item2.id) {
-                    item2.newTask = value;
-                }
-                return item2
-            });
-            return item1
-        });
-        this.setState({ board: newBoard })
+        // const newBoard = this.state.board.map(item1 => {
+        //     item1.boardCol.map(item2 => {
+        //         if (Number(id) === item2.id) {
+        //             item2.newTask = value;
+        //         }
+        //         return item2
+        //     });
+        //     return item1
+        // });
+        // this.setState({ board: newBoard })
+        const newTask = value;
+        this.setState({newTask: newTask})
     }
 
-    newColumnItemNameSave = (e, id) => {
+    newColumnItemNameSave = (e, id, boardId) => {
         e.preventDefault();
+        const newTask = this.state.newTask;
         const newColumnItem = {
-            id: Number(this.state.board[Number(this.state.board.length)-1].boardCol.length),
-            taskName: this.state.board.map(item1 => { item1.boardCol.map(item2 => item2.newTask) })
+            id: Math.random(),
+            // taskName: this.state.board.map(item1 => { item1.boardCol.map(item2 => item2.newTask) })
+            taskName: newTask,
         }
-        let a = this.state.board.map(i1 => {
-            if (Number(id) === i1.boardId) {
-                i1.boardCol.map(i2 => {
-                    if (Number(id) === i2.id) {
-                        return i2.newTask
+        // let a = this.state.board.map(i1 => {
+        //     if (Number(boardId) === i1.boardId) {
+        //         i1.boardCol.map(i2 => {
+        //             if (Number(id) === i2.id) {
+        //                 return i2.newTask
+        //             }
+        //         })
+        //     }
+        // })
+        // console.log(a, id, this.state.board[Number(this.state.board.length)-1].boardCol.length);
+        const newBoard = this.state.board.map(item1 => {
+            if(Number(boardId) === item1.boardId) {
+                item1.boardCol.map(item2 => {
+                    if (Number(id) === item2.id) {
+                        item2.tasks = [...item2.tasks, newColumnItem];
                     }
+                    
+                    return item2
                 })
             }
-        })
-        console.log(a, id, this.state.board[Number(this.state.board.length)-1].boardCol.length);
-        const newBoard = this.state.board.map(item1 => {
-            item1.boardCol.map(item2 => {
-                item2.tasks = [...item2.tasks, newColumnItem];
-                return item2
-            })
+            
             return item1
         })
-        this.setState({board: newBoard})
+        this.setState({
+            board: newBoard,
+            newTask: '',
+        })
     }
 
     render() {
