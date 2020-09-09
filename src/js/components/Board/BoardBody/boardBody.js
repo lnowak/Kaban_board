@@ -9,14 +9,17 @@ class BoardBody extends Component {
 
     openNewInputAddForm = e => {
         const boardId = e.target.dataset.boardid;
-        const id = e.target.dataset.id
-        this.props.openNewInputAddForm(id, boardId);
+        const id = e.target.dataset.id;
+        this.props.openNewInputAddForm(e, id, boardId);
+    }
+
+    closeNewInputAddForm = e => {
+        this.props.closeNewInputAddForm(e);
     }
 
     newColumnItemInputChange = e => {
-        const id = e.target.dataset.id;
         const value = e.target.value;
-        this.props.newColumnItemInputChange(id, value);
+        this.props.newColumnItemInputChange(value);
     }
 
     newColumnItemNameSave = e => {
@@ -24,6 +27,11 @@ class BoardBody extends Component {
         const boardId = e.target.dataset.boardid;
         this.props.newColumnItemNameSave(e, id, boardId);
 
+    }
+
+    newColumnItemNameCancel = e => {
+        const id = e.target.dataset.id;
+        this.props.newColumnItemNameCancel(e, id);
     }
 
     render() {
@@ -41,7 +49,7 @@ class BoardBody extends Component {
                             <input data-id={item.id} placeholder='Podaj tytuł karty' /*value={item.newTask}*/ value={this.props.boardState.newTask} onChange={this.newColumnItemInputChange}/>
                             <div className='buttons'>
                                 <input data-id={item.id} type='submit' value='Dodaj'/>
-                                <input data-id={item.id} type='submit' value='Zakmnij'/>
+                                <input data-id={item.id} data-boardid={e.boardId} type='submit' value='Zakmnij' onClick={this.closeNewInputAddForm}/>
                             </div>
                         </form>
                     )

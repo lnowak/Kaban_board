@@ -209,33 +209,47 @@ class Kanban extends Component {
         this.setState({ board: newBoard });
     }
 
-    openNewInputAddForm = (id, boardId) => {
+    openNewInputAddForm = (e, id, boardId) => {
         const newBoard = this.state.board.map(item1 => {
             if (Number(boardId) === item1.boardId) {
                 item1.boardCol.map(item2 => {
-                    // console.log(item2.id, id, boardId, item1.boardId)
                     if (Number(id) === item2.id) {
                         item2.openNewInputAddForm = !item2.openNewInputAddForm;
+                    } else {
+                        item2.openNewInputAddForm = false;
                     }
+                    return item2
+                })
+            } else {
+                item1.boardCol.map(item2 => {
+                    item2.openNewInputAddForm = false;
                     return item2
                 })
             }
             return item1
         });
-        this.setState({ board: newBoard })
+        this.setState({ 
+            board: newBoard,
+            newTask: '',
+        })
     }
 
-    newColumnItemInputChange = (id, value) => {
-        // const newBoard = this.state.board.map(item1 => {
-        //     item1.boardCol.map(item2 => {
-        //         if (Number(id) === item2.id) {
-        //             item2.newTask = value;
-        //         }
-        //         return item2
-        //     });
-        //     return item1
-        // });
-        // this.setState({ board: newBoard })
+    closeNewInputAddForm = (e) => {
+        e.preventDefault();
+        const newBoard = this.state.board.map(item1 => {
+                item1.boardCol.map(item2 => {
+                    item2.openNewInputAddForm = false;
+                    return item2
+                })
+            return item1
+        });
+        this.setState({ 
+            board: newBoard,
+            newTask: '',
+        })
+    }
+
+    newColumnItemInputChange = (value) => {
         const newTask = value;
         this.setState({newTask: newTask})
     }
@@ -248,33 +262,26 @@ class Kanban extends Component {
             // taskName: this.state.board.map(item1 => { item1.boardCol.map(item2 => item2.newTask) })
             taskName: newTask,
         }
-        // let a = this.state.board.map(i1 => {
-        //     if (Number(boardId) === i1.boardId) {
-        //         i1.boardCol.map(i2 => {
-        //             if (Number(id) === i2.id) {
-        //                 return i2.newTask
-        //             }
-        //         })
-        //     }
-        // })
-        // console.log(a, id, this.state.board[Number(this.state.board.length)-1].boardCol.length);
         const newBoard = this.state.board.map(item1 => {
             if(Number(boardId) === item1.boardId) {
                 item1.boardCol.map(item2 => {
-                    if (Number(id) === item2.id) {
+                    if (Number(id) === item2.id && this.state.newTask.length > 0) {
                         item2.tasks = [...item2.tasks, newColumnItem];
                     }
-                    
                     return item2
                 })
             }
             
             return item1
-        })
+        });
         this.setState({
             board: newBoard,
             newTask: '',
-        })
+        });
+        if (this.state.newTask.length > 0) {
+            this.openNewInputAddForm(id, boardId);
+        }
+        
     }
 
     render() {
@@ -284,7 +291,7 @@ class Kanban extends Component {
         return (
             <>
                 <Header handleBoardElementActive={this.handleBoardElementActive} headerState={this.state} />
-                <Board boardState={this.state} showItemsList={this.showItemsList} handleEditListItem={this.handleEditListItem} addNewList={this.addNewList} listNameChange={this.listNameChange} listNameSubmit={this.listNameSubmit} listRemove={this.listRemove} showListBody={this.showListBody} addNewColumn={this.addNewColumn} openNewInputAddForm={this.openNewInputAddForm} newColumnItemInputChange={this.newColumnItemInputChange} newColumnItemNameSave={this.newColumnItemNameSave} />
+                <Board boardState={this.state} showItemsList={this.showItemsList} handleEditListItem={this.handleEditListItem} addNewList={this.addNewList} listNameChange={this.listNameChange} listNameSubmit={this.listNameSubmit} listRemove={this.listRemove} showListBody={this.showListBody} addNewColumn={this.addNewColumn} openNewInputAddForm={this.openNewInputAddForm} closeNewInputAddForm={this.closeNewInputAddForm} newColumnItemInputChange={this.newColumnItemInputChange} newColumnItemNameSave={this.newColumnItemNameSave} newColumnItemNameCancel={this.newColumnItemNameCancel} />
                 {background}
             </>
         )

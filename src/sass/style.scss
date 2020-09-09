@@ -165,7 +165,6 @@ background: #af8d8d;
 .board__body {
     overflow: auto;
     display: flex;
-    
     &--active {
         width: 85%;
     }
@@ -182,6 +181,7 @@ background: #af8d8d;
     list-style: none;
     margin: 0 10px 0 10px;
     width: fit-content;
+    z-index: 0;
 }
 
 .boardBody__column {
@@ -195,6 +195,7 @@ background: #af8d8d;
     height: fit-content;
     width: 270px;
     margin: 0 10px 0 10px;
+    z-index: 2;
 }
 
 .board__backlog {
