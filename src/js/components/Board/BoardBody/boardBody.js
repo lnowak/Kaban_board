@@ -10,7 +10,7 @@ class BoardBody extends Component {
     openNewInputAddForm = e => {
         const boardId = e.target.dataset.boardid;
         const id = e.target.dataset.id;
-        this.props.openNewInputAddForm(e, id, boardId);
+        this.props.openNewInputAddForm(id, boardId);
     }
 
     closeNewInputAddForm = e => {

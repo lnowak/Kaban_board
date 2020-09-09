@@ -113,6 +113,7 @@ class Kanban extends Component {
         let editActive = this.state.board.map(e => {
             if (id === e.boardId) {
                 e.boardShortcutEditActive = !e.boardShortcutEditActive;
+                e.boardNewName = e.boardName;
             }
             return e
         })
@@ -209,7 +210,7 @@ class Kanban extends Component {
         this.setState({ board: newBoard });
     }
 
-    openNewInputAddForm = (e, id, boardId) => {
+    openNewInputAddForm = (id, boardId) => {
         const newBoard = this.state.board.map(item1 => {
             if (Number(boardId) === item1.boardId) {
                 item1.boardCol.map(item2 => {
@@ -236,6 +237,7 @@ class Kanban extends Component {
 
     closeNewInputAddForm = (e) => {
         e.preventDefault();
+        // e.stopImmediatePropagation();
         const newBoard = this.state.board.map(item1 => {
                 item1.boardCol.map(item2 => {
                     item2.openNewInputAddForm = false;
