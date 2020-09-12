@@ -174,7 +174,7 @@ background: #af8d8d;
     }
 }
 
-.board__body ul {
+.board__body > ul {
     display: flex;
     justify-content: space-around;
     align-items: flex-start;
@@ -216,6 +216,12 @@ background: #af8d8d;
     justify-content: space-around;
     align-items: center;
     width: 250px;
+    max-height: 89.45vh;
+}
+
+.testlist1 > li {
+    list-style: none;
+    overflow: auto;
 }
 
 .testlist2 {
@@ -235,5 +241,22 @@ background: #af8d8d;
     align-items: center;
     background-color: rgb(255, 255, 255);
     margin-top: 5px;
-    margin-bottom: 5px
+    margin-bottom: 5px;
+}
+
+.input_text {
+    width: 100%;
+    min-height: 35px;
+    border: none;
+    border-radius: 5px;
+}
+
+.form {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    width: 250px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }

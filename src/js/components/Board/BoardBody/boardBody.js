@@ -45,8 +45,8 @@ class BoardBody extends Component {
                     button = <li className={`test12`} data-boardid={e.boardId} data-id={item.id} onClick={this.openNewInputAddForm}>Dodaj nowy element</li>;
                 } else {
                     button = (
-                        <form data-id={item.id} data-boardid={e.boardId}onSubmit={this.newColumnItemNameSave}>
-                            <input data-id={item.id} placeholder='Podaj tytuł karty' /*value={item.newTask}*/ value={this.props.boardState.newTask} onChange={this.newColumnItemInputChange}/>
+                        <form className='form' data-id={item.id} data-boardid={e.boardId}onSubmit={this.newColumnItemNameSave}>
+                            <input className='input_text' data-id={item.id} type='text' placeholder='Podaj tytuł karty' /*value={item.newTask}*/ value={this.props.boardState.newTask} onChange={this.newColumnItemInputChange}/>
                             <div className='buttons'>
                                 <input data-id={item.id} type='submit' value='Dodaj'/>
                                 <input data-id={item.id} data-boardid={e.boardId} type='submit' value='Zakmnij' onClick={this.closeNewInputAddForm}/>

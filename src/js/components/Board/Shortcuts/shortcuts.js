@@ -47,7 +47,7 @@ class Shortcuts extends Component {
                 return (
                     <li key={item.boardId} className='board__shortcuts__listItem--editActive' data-id={item.boardId} >
                         <form className='board__shortcuts__form' data-id={item.boardId} onSubmit={this.listNameSubmit}>
-                            <input type='text' data-id={item.boardId} onChange={this.listNameChange} value={item.boardNewName} />
+                            <input className='input_text' type='text' data-id={item.boardId} onChange={this.listNameChange} value={item.boardNewName} />
                             <div className='board__shortcuts__form__buttons'>
                                 <button>Zapisz</button>
                                 <button data-id={item.boardId} onClick={this.listRemove}>Usuń listę</button>
