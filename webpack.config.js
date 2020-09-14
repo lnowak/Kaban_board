@@ -5,12 +5,9 @@ module.exports = {
   entry: ["whatwg-fetch", "./src/js/app.js"],
   output: {
     filename: "js/out.js",
-    path: path.resolve(__dirname, "build")
+    path: path.resolve(__dirname, "docs")
   },
   devServer: {
-    // contentBase: path.join(__dirname, "src"),
-    // publicPath: "/build/",
-    // compress: true,
     port: 3001
   },
   module: {
