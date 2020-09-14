@@ -93,14 +93,22 @@ background: #af8d8d;
     display: none;
     margin-left: 10px;
     max-height: 94vh;
+    width: 0;
 
     &--active{
-        width: 15%;
+        width: 270px;
         display: block;
         background-color: rgba(0, 0, 0, 0.2);
         min-height: 50px;
         height: fit-content;
+        left: -290px;
+        animation: shortcuts--active 0.3s;
     }
+}
+
+@keyframes shortcuts--active {
+    0% {transform: translateX(-290px);}
+    100% {transform: translateX(0);}
 }
 
 .board__shortcuts__mainList {
@@ -132,6 +140,11 @@ background: #af8d8d;
     padding: 10px;
     color: rgb(255, 255, 255);
     cursor: pointer;
+}
+
+.board__shortcuts__listItem--active {
+    background-color: rgba(255, 255, 255, 0.8);
+    color: rgb(0, 0, 0);
 }
 
 .board__shortcuts__listItem:hover {
@@ -175,13 +188,18 @@ background: #af8d8d;
 .board__body {
     overflow: auto;
     display: flex;
+    animation: shortcuts--disactive 0.3s;
+    
     &--active {
-        width: 85%;
+        width: calc(100% - 290px);
+        animation: shortcuts--active 0.3s;
     }
 
-    &--disactive {
-        width: 100%;
-    }
+}
+
+@keyframes shortcuts--disactive {
+    0% {transform: translateX(290px);}
+    100% {transform: translateX(0);}
 }
 
 .board__body > ul {
@@ -206,6 +224,15 @@ background: #af8d8d;
     width: 270px;
     margin: 0 10px 0 10px;
     z-index: 2;
+}
+
+.boardBody__column__name {
+    height: 35px;
+    width: 250px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    cursor: pointer;
 }
 
 .board__backlog {
@@ -239,7 +266,7 @@ background: #af8d8d;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    width: 250px;
+    width: 251px;
 }
 
 .test12 {
@@ -252,6 +279,8 @@ background: #af8d8d;
     background-color: rgb(255, 255, 255);
     margin-top: 5px;
     margin-bottom: 5px;
+    cursor: pointer;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
 }
 
 .input_text {

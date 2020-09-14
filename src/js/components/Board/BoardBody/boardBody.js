@@ -37,9 +37,9 @@ class BoardBody extends Component {
     render() {
         let list = this.props.boardState.board.map(e=> {
             return (e.boardCol.map(item => {
-                // console.log(e, item)
+
                 let list = item.tasks.map(ie => <li key={ie.id} className='test12' >{ie.taskName}</li>);
-                // console.log(item);
+
                 let button;
                 if(!item.openNewInputAddForm) {
                     button = <li className={`test12`} data-boardid={e.boardId} data-id={item.id} onClick={this.openNewInputAddForm}>Dodaj nowy element</li>;
@@ -56,7 +56,7 @@ class BoardBody extends Component {
                 }
                 return (
                     <li data-id={item.id} key={`${item.id}`} className={`boardBody__column ${e.boardBodyActive ? '' : 'none'} ` }>
-                        <span>{item.name}</span>
+                        <span className='boardBody__column__name'>{item.name}</span>
                         <ul className='testlist1'>
                             <li>
                                 <ul className='testlist2'>

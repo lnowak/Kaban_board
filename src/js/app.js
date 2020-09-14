@@ -10,7 +10,6 @@ class Kanban extends Component {
         board: [{
             boardName: 'Lista 1',
             boardId: 1,
-            boardShortcutActive: false,
             boardShortcutEditActive: false,
             boardNewName: '',
             boardBodyActive: true,
@@ -97,17 +96,6 @@ class Kanban extends Component {
         this.setState({ menuActive: !this.state.menuActive });
     }
 
-    // showItemsList = (e) => {
-    //     let id = Number(e);
-    //     let newBoardShortcutActive = this.state.board.map(e => {
-    //         if (id === e.boardId) {
-    //             e.boardShortcutActive = !e.boardShortcutActive;
-    //         }
-    //         return e
-    //     });
-    //     this.setState({ board: newBoardShortcutActive });
-    // }
-
     handleEditListItem = (e) => {
         let id = Number(e);
         let editActive = this.state.board.map(e => {
@@ -124,7 +112,6 @@ class Kanban extends Component {
         const newList = {
             boardName: `Lista ${this.state.board.length + 1}`,
             boardId: this.state.board.length + 1,
-            // boardShortcutActive: false,
             boardShortcutEditActive: false,
             boardNewName: '',
             boardBodyActive: false,
@@ -137,7 +124,6 @@ class Kanban extends Component {
         let id = Number(e.target.dataset.id);
         const newBoard = this.state.board.map(item => {
             if (id === item.boardId) {
-                // item.boardShortcutActive = !item.boardShortcutActive;
                 item.boardShortcutEditActive = false;
                 item.boardNewName = '';
             }
@@ -162,7 +148,6 @@ class Kanban extends Component {
             if (Number(id) === item.boardId && item.boardNewName.length > 0) {
                 item.boardName = item.boardNewName;
                 item.boardShortcutEditActive = false;
-                // item.boardShortcutActive = false;
                 item.boardNewName = '';
             }
             return item
