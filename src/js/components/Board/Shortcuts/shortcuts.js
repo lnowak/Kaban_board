@@ -52,7 +52,7 @@ class Shortcuts extends Component {
                     </li>
                 )
             } else {
-                console.log(item)
+                // console.log(item)
                 return (
                     <li key={item.boardId} className={`board__shortcuts__listItem ${item.boardBodyActive ? 'board__shortcuts__listItem--active' : ''}`} data-id={item.boardId} onClick={this.showListBody}>
                         {item.boardName}

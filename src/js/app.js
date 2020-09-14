@@ -90,10 +90,15 @@ class Kanban extends Component {
         },],
         menuActive: false,
         newTask: '',
+        newColName: '',
+        boardAddColFormAcvite: false,
     }
 
     handleBoardElementActive = () => {
-        this.setState({ menuActive: !this.state.menuActive });
+        this.setState({ 
+            menuActive: !this.state.menuActive,
+            boardAddColFormAcvite: false,
+        });
     }
 
     handleEditListItem = (e) => {
@@ -115,6 +120,7 @@ class Kanban extends Component {
             boardShortcutEditActive: false,
             boardNewName: '',
             boardBodyActive: false,
+            boardAddColFormAcvite: false,
             boardCol: [],
         };
         this.setState({ board: [...this.state.board, newList] })
@@ -178,21 +184,33 @@ class Kanban extends Component {
         this.setState({ board: newBoard });
     }
 
-    addNewColumn = () => {
+    addNewColumnForm = () => {
+        this.setState({boardAddColFormAcvite: true});
+    }
+
+    colNameChange = (value) => {
+        this.setState({ newColName: value });
+    }
+
+    addNewColumn = (e) => {
+        e.preventDefault();
         const newCol = {
             id: this.state.board[Number(this.state.board.length)-1].boardCol.length+1,
-            name: 'dsa',
+            name: this.state.newColName,
             tasks: [],
             newTask: ''
         };
-        console.log(this.state.board[Number(this.state.board.length)-1].boardCol.length)
+        // console.log(this.state.board[Number(this.state.board.length)-1].boardCol.length)
         const newBoard = this.state.board.map(e => {
             if (e.boardBodyActive) {
                 e.boardCol = [...e.boardCol, newCol]
             }
             return e
         })
-        this.setState({ board: newBoard });
+        this.setState({ 
+            board: newBoard,
+            boardAddColFormAcvite: false,
+        });
     }
 
     openNewInputAddForm = (id, boardId) => {
@@ -277,7 +295,7 @@ class Kanban extends Component {
         return (
             <>
                 <Header handleBoardElementActive={this.handleBoardElementActive} headerState={this.state} />
-                <Board boardState={this.state} handleEditListItem={this.handleEditListItem} addNewList={this.addNewList} listNameChange={this.listNameChange} listNameSubmit={this.listNameSubmit} listRemove={this.listRemove} showListBody={this.showListBody} addNewColumn={this.addNewColumn} openNewInputAddForm={this.openNewInputAddForm} closeNewInputAddForm={this.closeNewInputAddForm} newColumnItemInputChange={this.newColumnItemInputChange} newColumnItemNameSave={this.newColumnItemNameSave} newColumnItemNameCancel={this.newColumnItemNameCancel} />
+                <Board boardState={this.state} handleEditListItem={this.handleEditListItem} addNewList={this.addNewList} listNameChange={this.listNameChange} listNameSubmit={this.listNameSubmit} listRemove={this.listRemove} showListBody={this.showListBody} addNewColumnForm={this.addNewColumnForm} colNameChange={this.colNameChange} addNewColumn={this.addNewColumn} openNewInputAddForm={this.openNewInputAddForm} closeNewInputAddForm={this.closeNewInputAddForm} newColumnItemInputChange={this.newColumnItemInputChange} newColumnItemNameSave={this.newColumnItemNameSave} newColumnItemNameCancel={this.newColumnItemNameCancel} />
                 {background}
             </>
         )

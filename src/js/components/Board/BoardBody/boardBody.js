@@ -3,8 +3,17 @@ import ReactDOM, { render } from 'react-dom';
 
 class BoardBody extends Component {
 
-    addNewColumn = () => {
-        this.props.addNewColumn();
+    addNewColumnForm = () => {
+        this.props.addNewColumnForm();
+    }
+
+    colNameChange = (e) => {
+        const value = e.target.value;
+        this.props.colNameChange(value);
+    }
+
+    addNewColumn = (e) => {
+        this.props.addNewColumn(e);
     }
 
     openNewInputAddForm = e => {
@@ -35,18 +44,17 @@ class BoardBody extends Component {
     }
 
     render() {
-        let list = this.props.boardState.board.map(e=> {
+        const list = this.props.boardState.board.map(e=> {
             return (e.boardCol.map(item => {
 
-                let list = item.tasks.map(ie => <li key={ie.id} className='test12' >{ie.taskName}</li>);
-
+                const list = item.tasks.map(ie => <li key={ie.id} className='test12' >{ie.taskName}</li>);
                 let button;
                 if(!item.openNewInputAddForm) {
                     button = <li className={`test12`} data-boardid={e.boardId} data-id={item.id} onClick={this.openNewInputAddForm}>Dodaj nowy element</li>;
                 } else {
                     button = (
                         <form className='form' data-id={item.id} data-boardid={e.boardId}onSubmit={this.newColumnItemNameSave}>
-                            <input className='input_text' data-id={item.id} type='text' placeholder='Podaj tytuł karty' /*value={item.newTask}*/ value={this.props.boardState.newTask} onChange={this.newColumnItemInputChange}/>
+                            <input className='input_text' data-id={item.id} type='text' placeholder='Podaj tytuł karty' value={this.props.boardState.newTask} onChange={this.newColumnItemInputChange}/>
                             <div className='buttons'>
                                 <input data-id={item.id} type='submit' value='Dodaj'/>
                                 <input data-id={item.id} data-boardid={e.boardId} type='submit' value='Zakmnij' onClick={this.closeNewInputAddForm}/>
@@ -71,11 +79,25 @@ class BoardBody extends Component {
             }))
         })
 
+        let newColButton;
+        if (this.props.boardState.boardAddColFormAcvite) {
+            newColButton = <form onSubmit={this.addNewColumn} className='boardBody__column form'>
+                <input type='text' className='input_text' value={this.props.boardState.newColName} onChange={this.colNameChange} />
+                <div className='buttons'>
+                    <input type='submit' value='Dodaj'/>
+                    <input type='submit' value='Zakmnij'/>
+                </div>
+            </form>
+        } else {
+            newColButton = <li className={`${this.props.boardState.board.length > 0 ? 'boardBody__column' : 'none' }`} onClick={this.addNewColumnForm}>Dodaj nową kartę</li>
+        }
+
         return (
             <div className={`board__section board__body ${this.props.boardState.menuActive ? 'board__body--active' : ''} `}>
                 <ul>
                     {list}
-                    <li className={`${this.props.boardState.board.length > 0 ? 'boardBody__column' : 'none' }`} onClick={this.addNewColumn}>Dodaj nową kartę</li>
+                    {/* <li className={`${this.props.boardState.board.length > 0 ? 'boardBody__column' : 'none' }`} onClick={this.addNewColumnForm}>Dodaj nową kartę</li> */}
+                    {newColButton}
                 </ul>
             </div>
         )

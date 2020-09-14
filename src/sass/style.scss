@@ -101,7 +101,6 @@ background: #af8d8d;
         background-color: rgba(0, 0, 0, 0.2);
         min-height: 50px;
         height: fit-content;
-        left: -290px;
         animation: shortcuts--active 0.3s;
     }
 }
@@ -189,6 +188,7 @@ background: #af8d8d;
     overflow: auto;
     display: flex;
     animation: shortcuts--disactive 0.3s;
+    width: 100%;
     
     &--active {
         width: calc(100% - 290px);
