@@ -139,6 +139,12 @@ background: #af8d8d;
     color: rgb(0, 0, 0);
 }
 
+.board__shortcuts__listItem:hover .fa-edit {
+    display: block;
+    height: 20px;
+    width: 20px;
+}
+
 .board__shortcuts__listItem--editActive {
     z-index: 3;
 }
@@ -148,9 +154,13 @@ background: #af8d8d;
     flex-direction: column;
 }
 
+// .fa-edit {
+//     height: 20px;
+//     width: 20px;
+// }
+
 .fa-edit {
-    height: 20px;
-    width: 20px;
+    display: none;
 }
 
 .fa-edit:hover {
