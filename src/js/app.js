@@ -94,9 +94,19 @@ class Kanban extends Component {
         boardAddColFormAcvite: false,
     }
 
-    handleBoardElementActive = () => {        
-        this.setState({ 
+    handleBoardElementActive = () => {     
+        const newBoard = this.state.board.map(item1 => {
+            item1.boardCol.map(item2 => {
+                item2.openNewInputAddForm = false;
+                return item2
+            })
+            return item1
+        })
+        this.setState({
+            board: newBoard,
             menuActive: !this.state.menuActive,
+            newTask: '',
+            newColName: '',
             boardAddColFormAcvite: false,
         });
     }
@@ -209,8 +219,17 @@ class Kanban extends Component {
         })
         this.setState({ 
             board: newBoard,
+            newColName: '',
             boardAddColFormAcvite: false,
         });
+    }
+
+    newColumnItemNameCancel = (e) => {
+        e.preventDefault();
+        this.setState({
+            boardAddColFormAcvite: false,
+            newColName: '',
+        })
     }
 
     openNewInputAddForm = (e, id, boardId) => {
@@ -285,11 +304,6 @@ class Kanban extends Component {
         if (this.state.newTask.length > 0) {
             this.openNewInputAddForm(id, boardId);
         }
-    }
-
-    newColumnItemNameCancel = (e) => {
-        e.preventDefault();
-        this.setState({boardAddColFormAcvite: false})
     }
 
     // cancelActions = e => {

@@ -57,7 +57,7 @@ class BoardBody extends Component {
                 } else {
                     button = (
                         <form className='form' data-id={item.id} data-boardid={e.boardId}onSubmit={this.newColumnItemNameSave}>
-                            <input className='input_text' data-id={item.id} type='text' placeholder='Podaj tytuł karty' value={this.props.boardState.newTask} onChange={this.newColumnItemInputChange}/>
+                            <textarea className='input_text' data-id={item.id} type='text' placeholder='Podaj tytuł karty' value={this.props.boardState.newTask} onChange={this.newColumnItemInputChange}/>
                             <div className='buttons'>
                                 <input data-id={item.id} type='submit' value='Dodaj'/>
                                 <input data-id={item.id} data-boardid={e.boardId} type='submit' value='Zakmnij' onClick={this.closeNewInputAddForm}/>
@@ -75,7 +75,6 @@ class BoardBody extends Component {
                                 </ul>
                             </li>
                             {button}
-                            {/* <li className={`test12`} data-id={item.id} onClick={this.openNewInputAddForm}>Dodaj nowy element</li> */}
                         </ul>
                     </li>
                 )
@@ -84,8 +83,8 @@ class BoardBody extends Component {
 
         let newColButton;
         if (this.props.boardState.boardAddColFormAcvite) {
-            newColButton = <form onSubmit={this.addNewColumn} className='boardBody__column form'>
-                <input type='text' className='input_text' value={this.props.boardState.newColName} onChange={this.colNameChange} />
+            newColButton = <form onSubmit={this.addNewColumn} className='boardBody__column'>
+                <textarea className='input_text' onChange={this.colNameChange} value={this.props.boardState.newColName}/>
                 <div className='buttons'>
                     <input type='submit' value='Dodaj'/>
                     <input type='submit' value='Zakmnij' onClick={this.newColumnItemNameCancel}/>
