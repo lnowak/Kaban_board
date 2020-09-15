@@ -94,7 +94,7 @@ class Kanban extends Component {
         boardAddColFormAcvite: false,
     }
 
-    handleBoardElementActive = () => {
+    handleBoardElementActive = () => {        
         this.setState({ 
             menuActive: !this.state.menuActive,
             boardAddColFormAcvite: false,
@@ -200,7 +200,7 @@ class Kanban extends Component {
             tasks: [],
             newTask: ''
         };
-        // console.log(this.state.board[Number(this.state.board.length)-1].boardCol.length)
+        
         const newBoard = this.state.board.map(e => {
             if (e.boardBodyActive) {
                 e.boardCol = [...e.boardCol, newCol]
@@ -213,7 +213,7 @@ class Kanban extends Component {
         });
     }
 
-    openNewInputAddForm = (id, boardId) => {
+    openNewInputAddForm = (e, id, boardId) => {
         const newBoard = this.state.board.map(item1 => {
             if (Number(boardId) === item1.boardId) {
                 item1.boardCol.map(item2 => {
@@ -240,7 +240,6 @@ class Kanban extends Component {
 
     closeNewInputAddForm = (e) => {
         e.preventDefault();
-        // e.stopImmediatePropagation();
         const newBoard = this.state.board.map(item1 => {
                 item1.boardCol.map(item2 => {
                     item2.openNewInputAddForm = false;
@@ -288,6 +287,23 @@ class Kanban extends Component {
         }
     }
 
+    newColumnItemNameCancel = (e) => {
+        e.preventDefault();
+        this.setState({boardAddColFormAcvite: false})
+    }
+
+    // cancelActions = e => {
+    //     // e.nativeEvent.stopImmediatePropagation();
+    //     // e.stopPropagation();
+    //     // e.preventDefault();
+    //     console.log(e.target);
+    //     this.setState({
+    //         newTask: '',
+    //         boardAddColFormAcvite: false,
+    //         newColName: '',
+    //     })
+    // }
+
     render() {
         const background = this.state.board.map(item => {
             return <div key={item.boardId} data-id={item.boardId} className={`${item.boardShortcutEditActive ? 'fullscreen__background' : 'none'}`} onClick={this.backgroundOff}></div>
@@ -295,7 +311,7 @@ class Kanban extends Component {
         return (
             <>
                 <Header handleBoardElementActive={this.handleBoardElementActive} headerState={this.state} />
-                <Board boardState={this.state} handleEditListItem={this.handleEditListItem} addNewList={this.addNewList} listNameChange={this.listNameChange} listNameSubmit={this.listNameSubmit} listRemove={this.listRemove} showListBody={this.showListBody} addNewColumnForm={this.addNewColumnForm} colNameChange={this.colNameChange} addNewColumn={this.addNewColumn} openNewInputAddForm={this.openNewInputAddForm} closeNewInputAddForm={this.closeNewInputAddForm} newColumnItemInputChange={this.newColumnItemInputChange} newColumnItemNameSave={this.newColumnItemNameSave} newColumnItemNameCancel={this.newColumnItemNameCancel} />
+                <Board boardState={this.state} handleEditListItem={this.handleEditListItem} addNewList={this.addNewList} listNameChange={this.listNameChange} listNameSubmit={this.listNameSubmit} listRemove={this.listRemove} showListBody={this.showListBody} addNewColumnForm={this.addNewColumnForm} colNameChange={this.colNameChange} addNewColumn={this.addNewColumn} openNewInputAddForm={this.openNewInputAddForm} closeNewInputAddForm={this.closeNewInputAddForm} newColumnItemInputChange={this.newColumnItemInputChange} newColumnItemNameSave={this.newColumnItemNameSave} newColumnItemNameCancel={this.newColumnItemNameCancel} cancelActions={this.cancelActions} />
                 {background}
             </>
         )

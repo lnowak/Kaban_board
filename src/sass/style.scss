@@ -93,7 +93,7 @@ background: #af8d8d;
     display: none;
     margin-left: 10px;
     max-height: 94vh;
-    width: 0;
+    animation: shortcuts--disactive 0.3s;
 
     &--active{
         width: 270px;
@@ -108,6 +108,11 @@ background: #af8d8d;
 @keyframes shortcuts--active {
     0% {transform: translateX(-290px);}
     100% {transform: translateX(0);}
+}
+
+@keyframes shortcuts--disactive {
+    0% {display: block;}
+    100% {display: none;}
 }
 
 .board__shortcuts__mainList {
@@ -189,6 +194,7 @@ background: #af8d8d;
     display: flex;
     animation: shortcuts--disactive 0.3s;
     width: 100%;
+    z-index: 0;
     
     &--active {
         width: calc(100% - 290px);
@@ -223,7 +229,7 @@ background: #af8d8d;
     height: fit-content;
     width: 270px;
     margin: 0 10px 0 10px;
-    z-index: 2;
+    z-index: 1;
 }
 
 .boardBody__column__name {

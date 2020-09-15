@@ -19,7 +19,7 @@ class BoardBody extends Component {
     openNewInputAddForm = e => {
         const boardId = e.target.dataset.boardid;
         const id = e.target.dataset.id;
-        this.props.openNewInputAddForm(id, boardId);
+        this.props.openNewInputAddForm(e, id, boardId);
     }
 
     closeNewInputAddForm = e => {
@@ -35,13 +35,16 @@ class BoardBody extends Component {
         const id = e.target.dataset.id;
         const boardId = e.target.dataset.boardid;
         this.props.newColumnItemNameSave(e, id, boardId);
-
     }
 
     newColumnItemNameCancel = e => {
         const id = e.target.dataset.id;
         this.props.newColumnItemNameCancel(e, id);
     }
+
+    // cancelActions = (e) => {
+    //     this.props.cancelActions(e)
+    // }
 
     render() {
         const list = this.props.boardState.board.map(e=> {
@@ -85,7 +88,7 @@ class BoardBody extends Component {
                 <input type='text' className='input_text' value={this.props.boardState.newColName} onChange={this.colNameChange} />
                 <div className='buttons'>
                     <input type='submit' value='Dodaj'/>
-                    <input type='submit' value='Zakmnij'/>
+                    <input type='submit' value='Zakmnij' onClick={this.newColumnItemNameCancel}/>
                 </div>
             </form>
         } else {
@@ -93,10 +96,9 @@ class BoardBody extends Component {
         }
 
         return (
-            <div className={`board__section board__body ${this.props.boardState.menuActive ? 'board__body--active' : ''} `}>
+            <div className={`board__section board__body ${this.props.boardState.menuActive ? 'board__body--active' : ''} `} /*onClick={this.cancelActions}*/>
                 <ul>
                     {list}
-                    {/* <li className={`${this.props.boardState.board.length > 0 ? 'boardBody__column' : 'none' }`} onClick={this.addNewColumnForm}>Dodaj nową kartę</li> */}
                     {newColButton}
                 </ul>
             </div>
