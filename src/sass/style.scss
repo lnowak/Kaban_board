@@ -143,7 +143,7 @@ background: #af8d8d;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 8%;
+    min-height: 35px;
     width: 90%;
     margin: 10px 10px 10px 10px;
     padding: 10px;
@@ -169,17 +169,22 @@ background: #af8d8d;
 
 .board__shortcuts__listItem--editActive {
     z-index: 3;
+    min-height: 37px;
 }
 
-.board__shortcuts__form {
+.board__shortcuts__form__buttons {
     display: flex;
     flex-direction: column;
 }
 
-// .fa-edit {
-//     height: 20px;
-//     width: 20px;
-// }
+.list_input_text {
+    width: 270px;
+    min-height: 35px;
+    border: none;
+    border-radius: 5px;
+    resize: vertical;
+    overflow-wrap: break-word;
+}
 
 .fa-edit {
     display: none;
@@ -191,7 +196,10 @@ background: #af8d8d;
 
 .board__shortcuts__form {
     display: flex;
-
+    flex-direction: row;
+    position: fixed;
+    width: 350px;
+    justify-content: space-between;
 }
 
 .board__body {
@@ -288,7 +296,7 @@ background: #af8d8d;
     width: 250px;
     min-height: 35px;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     background-color: rgb(255, 255, 255);
     margin-top: 5px;
@@ -298,6 +306,14 @@ background: #af8d8d;
     overflow: hidden;
     word-break: break-word;
     white-space: normal;
+}
+
+.test123 {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
+    cursor: pointer;
 }
 
 .input_text {
@@ -322,4 +338,9 @@ background: #af8d8d;
     width: 250px;
     margin-top: 5px;
     margin-bottom: 5px;
+}
+
+.fa-plus {
+    height: 20px;
+    width: 20px;
 }

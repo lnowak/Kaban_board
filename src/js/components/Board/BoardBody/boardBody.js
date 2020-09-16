@@ -46,6 +46,10 @@ class BoardBody extends Component {
         this.props.cancelActions(e)
     }
 
+    columnFormOpen = e => {
+        this.props.columnFormOpen(e);
+    }
+
     render() {
         const list = this.props.boardState.board.map(e=> {
             return (e.boardCol.map(item => {
@@ -53,7 +57,7 @@ class BoardBody extends Component {
                 const list = item.tasks.map(ie => <li key={ie.id} className='test12' >{ie.taskName}</li>);
                 let button;
                 if(!item.openNewInputAddForm) {
-                    button = <li className={`test12`} data-boardid={e.boardId} data-id={item.id} onClick={this.openNewInputAddForm}>Dodaj nowy element</li>;
+                    button = <li className={`test12`} data-boardid={e.boardId} data-id={item.id} onClick={this.openNewInputAddForm}><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="plus" className="svg-inline--fa fa-plus fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"></path></svg>Dodaj nowy element</li>;
                 } else {
                     button = (
                         <form className='form' data-id={item.id} data-boardid={e.boardId}onSubmit={this.newColumnItemNameSave}>
@@ -65,9 +69,20 @@ class BoardBody extends Component {
                         </form>
                     )
                 }
+
+                let name;
+                if (!this.props.boardState.boardColNameFormActive) {
+                    name = <span data-id={item.id} className='boardBody__column__name' onClick={this.columnFormOpen}>{item.name}</span>
+                } else {
+                    name = <form className='form' data-id={item.id} data-boardid={e.boardId}onSubmit={this.newColumnItemNameSave}>
+                        <textarea className='input_text' data-id={item.id} type='text' value={this.props.boardState.newTask} onChange={this.newColumnItemInputChange}/>
+                    </form>
+                }
+
                 return (
                     <li data-id={item.id} key={`${item.id}`} className={`boardBody__column ${e.boardBodyActive ? '' : 'none'} ` }>
-                        <span className='boardBody__column__name'>{item.name}</span>
+                        {/* <span className='boardBody__column__name' onClick={this.columnFormOpen}>{item.name}</span> */}
+                        {name}
                         <ul className='testlist1'>
                             <li>
                                 <ul className='testlist2'>
@@ -91,7 +106,7 @@ class BoardBody extends Component {
                 </div>
             </form>
         } else {
-            newColButton = <li className={`${this.props.boardState.board.length > 0 ? 'boardBody__column' : 'none' }`} onClick={this.addNewColumnForm}>Dodaj nową kartę</li>
+            newColButton = <li className={`${this.props.boardState.board.length > 0 ? 'boardBody__column test123' : 'none' }`} onClick={this.addNewColumnForm}><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="plus" className="svg-inline--fa fa-plus fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"></path></svg>Dodaj nową kartę</li>
         }
 
         return (
