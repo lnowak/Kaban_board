@@ -125,12 +125,11 @@ class Kanban extends Component {
 
     addNewList = () => {
         const newList = {
-            boardName: `Lista ${this.state.board.length + 1}`,
-            boardId: this.state.board.length + 1,
+            boardName: `Lista ${this.state.board[this.state.board.length-1].boardId+1}`,
+            boardId: this.state.board[this.state.board.length-1].boardId+1,
             boardShortcutEditActive: false,
             boardNewName: '',
             boardBodyActive: false,
-            boardAddColFormAcvite: false,
             boardCol: [],
         };
         this.setState({ board: [...this.state.board, newList] })
@@ -194,12 +193,14 @@ class Kanban extends Component {
         this.setState({ board: newBoard });
     }
 
-    addNewColumnForm = () => {
+    addNewColumnForm = (e) => {
         this.setState({boardAddColFormAcvite: true});
+        // e.stopPropagation();
     }
 
     colNameChange = (value) => {
         this.setState({ newColName: value });
+        // e.stopPropagation();
     }
 
     addNewColumn = (e) => {
@@ -212,7 +213,7 @@ class Kanban extends Component {
         };
         
         const newBoard = this.state.board.map(e => {
-            if (e.boardBodyActive) {
+            if (e.boardBodyActive && this.state.newColName.length>0) {
                 e.boardCol = [...e.boardCol, newCol]
             }
             return e
@@ -222,6 +223,10 @@ class Kanban extends Component {
             newColName: '',
             boardAddColFormAcvite: false,
         });
+        if(this.state.newColName.length < 1) {
+            this.addNewColumnForm();
+        }
+        // e.stopPropagation();
     }
 
     newColumnItemNameCancel = (e) => {
@@ -232,7 +237,7 @@ class Kanban extends Component {
         })
     }
 
-    openNewInputAddForm = (e, id, boardId) => {
+    openNewInputAddForm = (id, boardId) => {
         const newBoard = this.state.board.map(item1 => {
             if (Number(boardId) === item1.boardId) {
                 item1.boardCol.map(item2 => {
@@ -306,17 +311,23 @@ class Kanban extends Component {
         }
     }
 
-    // cancelActions = e => {
-    //     // e.nativeEvent.stopImmediatePropagation();
-    //     // e.stopPropagation();
-    //     // e.preventDefault();
-    //     console.log(e.target);
-    //     this.setState({
-    //         newTask: '',
-    //         boardAddColFormAcvite: false,
-    //         newColName: '',
-    //     })
-    // }
+    cancelActions = (e) => {
+        if (e.target.className === 'lis') {
+            const newBoard = this.state.board.map(item1 => {
+                item1.boardCol.map(item2 => {
+                    item2.openNewInputAddForm = false;
+                    return item2
+                })
+                return item1
+            })
+            this.setState({
+                board: newBoard,
+                newTask: '',
+                boardAddColFormAcvite: false,
+                newColName: '',
+            })
+        }
+    }
 
     render() {
         const background = this.state.board.map(item => {

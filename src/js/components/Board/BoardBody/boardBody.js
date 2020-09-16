@@ -3,8 +3,8 @@ import ReactDOM, { render } from 'react-dom';
 
 class BoardBody extends Component {
 
-    addNewColumnForm = () => {
-        this.props.addNewColumnForm();
+    addNewColumnForm = (e) => {
+        this.props.addNewColumnForm(e);
     }
 
     colNameChange = (e) => {
@@ -19,7 +19,7 @@ class BoardBody extends Component {
     openNewInputAddForm = e => {
         const boardId = e.target.dataset.boardid;
         const id = e.target.dataset.id;
-        this.props.openNewInputAddForm(e, id, boardId);
+        this.props.openNewInputAddForm(id, boardId);
     }
 
     closeNewInputAddForm = e => {
@@ -42,9 +42,9 @@ class BoardBody extends Component {
         this.props.newColumnItemNameCancel(e, id);
     }
 
-    // cancelActions = (e) => {
-    //     this.props.cancelActions(e)
-    // }
+    cancelActions = (e) => {
+        this.props.cancelActions(e)
+    }
 
     render() {
         const list = this.props.boardState.board.map(e=> {
@@ -95,8 +95,8 @@ class BoardBody extends Component {
         }
 
         return (
-            <div className={`board__section board__body ${this.props.boardState.menuActive ? 'board__body--active' : ''} `} /*onClick={this.cancelActions}*/>
-                <ul>
+            <div className={`board__section board__body ${this.props.boardState.menuActive ? 'board__body--active' : ''} `}>
+                <ul className='lis' onClick={this.cancelActions} >
                     {list}
                     {newColButton}
                 </ul>
