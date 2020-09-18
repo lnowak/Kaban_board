@@ -38,12 +38,8 @@ background: #af8d8d;
     overflow: hidden;
 }
 
-.btn {
-    width: 10%;
-}
-
 .fullscreen__background{
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.4);
     display: block;
     position: fixed;
     height: 100vh;
@@ -99,6 +95,7 @@ background: #af8d8d;
     margin-left: 10px;
     max-height: 94vh;
     animation: shortcuts--disactive 0.3s;
+    padding: 0 5px 5px 5px;
 
     &--active{
         width: 270px;
@@ -120,9 +117,13 @@ background: #af8d8d;
     100% {display: none;}
 }
 
-.board__shortcuts__mainList {
-    width: 100%;
+.board__shortcuts > ul {
+    list-style: none;
 }
+
+// .board__shortcuts__mainList {
+//     width: 100%;
+// }
 
 .board__shortcuts__mainList_list {
     overflow-y: auto;
@@ -144,11 +145,12 @@ background: #af8d8d;
     justify-content: space-between;
     align-items: center;
     min-height: 35px;
-    width: 90%;
-    margin: 10px 10px 10px 10px;
-    padding: 10px;
+    width: 260px;
+    padding-left: 10px;
     color: rgb(255, 255, 255);
     cursor: pointer;
+    margin-top: 5px;
+    // border-radius: 5px;
 }
 
 .board__shortcuts__listItem--active {
@@ -165,25 +167,55 @@ background: #af8d8d;
     display: block;
     height: 20px;
     width: 20px;
+    margin-right: 5px;
 }
 
 .board__shortcuts__listItem--editActive {
     z-index: 3;
-    min-height: 37px;
+    min-height: 40px;
+}
+
+.board__shortcuts__form {
+    display: flex;
+    flex-direction: row;
+    position: fixed;
+    width: 430px;
+    justify-content: space-between;
 }
 
 .board__shortcuts__form__buttons {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+    height: 63px;
+    margin: 5px 0 0 0;
+}
+
+.btn {
+    width: 150px;
+    height: 30px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 5px;
+}
+
+.btn:hover {
+    background-color: rgba(0, 0, 0, 0.85);
+    color: rgb(255, 255, 255);
+    transform: translateX(5px);
+    transition: 0.2s;
 }
 
 .list_input_text {
-    width: 270px;
-    min-height: 35px;
+    width: 260px;
+    height: 35px;
+    margin: 5px 0 0 0;
     border: none;
-    border-radius: 5px;
+    // border-radius: 5px;
     resize: vertical;
     overflow-wrap: break-word;
+    padding-left: 10px;
 }
 
 .fa-edit {
@@ -192,14 +224,6 @@ background: #af8d8d;
 
 .fa-edit:hover {
     background-color: rgb(223, 211, 211);
-}
-
-.board__shortcuts__form {
-    display: flex;
-    flex-direction: row;
-    position: fixed;
-    width: 350px;
-    justify-content: space-between;
 }
 
 .board__body {
@@ -296,7 +320,8 @@ background: #af8d8d;
     width: 250px;
     min-height: 35px;
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-start;
+    padding-left: 5px;
     align-items: center;
     background-color: rgb(255, 255, 255);
     margin-top: 5px;
@@ -310,7 +335,7 @@ background: #af8d8d;
 
 .test123 {
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-start;
     align-items: center;
     flex-direction: row;
     cursor: pointer;
@@ -343,4 +368,5 @@ background: #af8d8d;
 .fa-plus {
     height: 20px;
     width: 20px;
+    margin-right: 5px;
 }

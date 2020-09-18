@@ -18,6 +18,7 @@ class Kanban extends Component {
                     id: 1,
                     name: 'Project Backlog',
                     openNewInputAddForm: false,
+                    boardColNameFormActive: false,
                     tasks: [
                         {
                             id: 1,
@@ -30,6 +31,7 @@ class Kanban extends Component {
                     id: 2,
                     name: 'Sprint Backlog',
                     openNewInputAddForm: false,
+                    boardColNameFormActive: false,
                     tasks: [
                         {
                             id: 1,
@@ -42,6 +44,7 @@ class Kanban extends Component {
                     id: 3,
                     name: 'In progress',
                     openNewInputAddForm: false,
+                    boardColNameFormActive: false,
                     tasks: [
                         {
                             id: 1,
@@ -54,6 +57,7 @@ class Kanban extends Component {
                     id: 4,
                     name: 'QA (Testing)',
                     openNewInputAddForm: false,
+                    boardColNameFormActive: false,
                     tasks: [
                         {
                             id: 1,
@@ -66,6 +70,7 @@ class Kanban extends Component {
                     id: 5,
                     name: 'Bug report',
                     openNewInputAddForm: false,
+                    boardColNameFormActive: false,
                     tasks: [
                         {
                             id: 1,
@@ -78,6 +83,7 @@ class Kanban extends Component {
                     id: 6,
                     name: 'Done',
                     openNewInputAddForm: false,
+                    boardColNameFormActive: false,
                     tasks: [
                         {
                             id: 1,
@@ -92,7 +98,7 @@ class Kanban extends Component {
         newTask: '',
         newColName: '',
         boardAddColFormAcvite: false,
-        boardColNameFormActive: false,
+        // boardColNameFormActive: false,
     }
 
     handleBoardElementActive = () => {     
@@ -116,7 +122,7 @@ class Kanban extends Component {
         let id = Number(e);
         let editActive = this.state.board.map(e => {
             if (id === e.boardId) {
-                e.boardShortcutEditActive = !e.boardShortcutEditActive;
+                e.boardShortcutEditActive = true;
                 e.boardNewName = e.boardName;
             }
             return e
@@ -131,7 +137,7 @@ class Kanban extends Component {
             boardShortcutEditActive: false,
             boardNewName: '',
             boardBodyActive: false,
-            boardColNameFormActive: false,
+            // boardColNameFormActive: false,
             boardCol: [],
         };
         this.setState({ board: [...this.state.board, newList] })
@@ -196,13 +202,22 @@ class Kanban extends Component {
     }
 
     addNewColumnForm = (e) => {
-        this.setState({boardAddColFormAcvite: true});
-        // e.stopPropagation();
+        const newBoard = this.state.board.map(item1 => {
+            item1.boardCol.map(item2 => {
+                item2.boardColNameFormActive = false;
+                return item2
+            })
+            return item1
+        })
+        this.setState({
+            board: newBoard,
+            boardAddColFormAcvite: true,
+            newColName: ''
+        });
     }
 
     colNameChange = (value) => {
         this.setState({ newColName: value });
-        // e.stopPropagation();
     }
 
     addNewColumn = (e) => {
@@ -210,6 +225,7 @@ class Kanban extends Component {
         const newCol = {
             id: this.state.board[Number(this.state.board.length)-1].boardCol.length+1,
             name: this.state.newColName,
+            boardColNameFormActive: false,
             tasks: [],
             newTask: ''
         };
@@ -318,6 +334,10 @@ class Kanban extends Component {
             const newBoard = this.state.board.map(item1 => {
                 item1.boardCol.map(item2 => {
                     item2.openNewInputAddForm = false;
+                    if (item2.boardColNameFormActive) {
+                        item2.boardColNameFormActive = false;
+                        item2.name = this.state.newColName;
+                    }
                     return item2
                 })
                 return item1
@@ -331,16 +351,25 @@ class Kanban extends Component {
         }
     }
 
-    columnFormOpen = (e) => {
-        console.log('dziala', this.state.boardColNameFormActive);
-        let id = Number(e.target.dataset.id);
-        this.state.board.map(item1 => {
-            item1.boardCol.map(item2 => {
-                console.log(item2.id)
-            })
+    columnFormOpen = (id, boardId) => {
+        const newBoard = this.state.board.map(item1 => {
+            if(item1.boardId === Number(boardId)) {
+                item1.boardCol.map(item2 => {
+                    if(item2.id === Number(id)) {
+                        item2.boardColNameFormActive = true;
+                        this.setState({newColName: item2.name})
+                    } else {
+                        item2.boardColNameFormActive = false;
+                    }
+                    return item2
+                })
+            }
+            return item1
         })
-        const newBoardColNameFormActive = !newBoardColNameFormActive;
-        this.setState({boardColNameFormActive: newBoardColNameFormActive})
+        this.setState({
+            board: newBoard,
+            boardAddColFormAcvite: false,
+        })
     }
 
     render() {
@@ -350,7 +379,7 @@ class Kanban extends Component {
         return (
             <>
                 <Header handleBoardElementActive={this.handleBoardElementActive} headerState={this.state} />
-                <Board boardState={this.state} handleEditListItem={this.handleEditListItem} addNewList={this.addNewList} listNameChange={this.listNameChange} listNameSubmit={this.listNameSubmit} listRemove={this.listRemove} showListBody={this.showListBody} addNewColumnForm={this.addNewColumnForm} colNameChange={this.colNameChange} addNewColumn={this.addNewColumn} openNewInputAddForm={this.openNewInputAddForm} closeNewInputAddForm={this.closeNewInputAddForm} newColumnItemInputChange={this.newColumnItemInputChange} newColumnItemNameSave={this.newColumnItemNameSave} newColumnItemNameCancel={this.newColumnItemNameCancel} cancelActions={this.cancelActions} columnFormOpen={this.columnFormOpen} />
+                <Board boardState={this.state} handleEditListItem={this.handleEditListItem} addNewList={this.addNewList} listNameChange={this.listNameChange} listNameSubmit={this.listNameSubmit} listRemove={this.listRemove} showListBody={this.showListBody} addNewColumnForm={this.addNewColumnForm} colNameChange={this.colNameChange} addNewColumn={this.addNewColumn} openNewInputAddForm={this.openNewInputAddForm} closeNewInputAddForm={this.closeNewInputAddForm} newColumnItemInputChange={this.newColumnItemInputChange} newColumnItemNameSave={this.newColumnItemNameSave} newColumnItemNameCancel={this.newColumnItemNameCancel} cancelActions={this.cancelActions} columnFormOpen={this.columnFormOpen}/>
                 {background}
             </>
         )

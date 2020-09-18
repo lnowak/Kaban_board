@@ -46,8 +46,10 @@ class BoardBody extends Component {
         this.props.cancelActions(e)
     }
 
-    columnFormOpen = e => {
-        this.props.columnFormOpen(e);
+    columnFormOpen = (e) => {
+        const id = e.target.dataset.id;
+        const boardId = e.target.dataset.boardid;
+        this.props.columnFormOpen(id, boardId);
     }
 
     render() {
@@ -71,11 +73,11 @@ class BoardBody extends Component {
                 }
 
                 let name;
-                if (!this.props.boardState.boardColNameFormActive) {
-                    name = <span data-id={item.id} className='boardBody__column__name' onClick={this.columnFormOpen}>{item.name}</span>
+                if (!item.boardColNameFormActive) {
+                    name = <span data-id={item.id} data-boardid={e.boardId} className='boardBody__column__name' onClick={this.columnFormOpen}>{item.name}</span>
                 } else {
                     name = <form className='form' data-id={item.id} data-boardid={e.boardId}onSubmit={this.newColumnItemNameSave}>
-                        <textarea className='input_text' data-id={item.id} type='text' value={this.props.boardState.newTask} onChange={this.newColumnItemInputChange}/>
+                        <input className='list_input_text' data-id={item.id} type='text' value={this.props.boardState.newColName} onChange={this.colNameChange}/>
                     </form>
                 }
 
