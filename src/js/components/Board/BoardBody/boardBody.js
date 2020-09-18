@@ -77,7 +77,7 @@ class BoardBody extends Component {
                     name = <span data-id={item.id} data-boardid={e.boardId} className='boardBody__column__name' onClick={this.columnFormOpen}>{item.name}</span>
                 } else {
                     name = <form className='form' data-id={item.id} data-boardid={e.boardId}onSubmit={this.newColumnItemNameSave}>
-                        <input className='list_input_text' data-id={item.id} type='text' value={this.props.boardState.newColName} onChange={this.colNameChange}/>
+                        <input className='list_input_text' data-id={item.id} type='text' placeholder='Wpisz nazwę karty' value={this.props.boardState.newColName} onChange={this.colNameChange}/>
                     </form>
                 }
 
@@ -101,7 +101,7 @@ class BoardBody extends Component {
         let newColButton;
         if (this.props.boardState.boardAddColFormAcvite) {
             newColButton = <form onSubmit={this.addNewColumn} className='boardBody__column'>
-                <textarea className='input_text' onChange={this.colNameChange} value={this.props.boardState.newColName}/>
+                <textarea className='input_text' placeholder='Wpisz nazwę karty' onChange={this.colNameChange} value={this.props.boardState.newColName}/>
                 <div className='buttons'>
                     <input type='submit' value='Dodaj'/>
                     <input type='submit' value='Zakmnij' onClick={this.newColumnItemNameCancel}/>

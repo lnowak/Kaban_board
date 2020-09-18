@@ -195,10 +195,16 @@ class Kanban extends Component {
                 item.boardBodyActive = true
             } else {
                 item.boardBodyActive = false
+                item.boardCol.map(item2 => {
+                    item2.boardColNameFormActive = false;
+                })
             }
             return item
         })
-        this.setState({ board: newBoard });
+        this.setState({ 
+            board: newBoard,
+            boardAddColFormAcvite: false,
+        });
     }
 
     addNewColumnForm = (e) => {
@@ -334,7 +340,7 @@ class Kanban extends Component {
             const newBoard = this.state.board.map(item1 => {
                 item1.boardCol.map(item2 => {
                     item2.openNewInputAddForm = false;
-                    if (item2.boardColNameFormActive) {
+                    if (item2.boardColNameFormActive && this.state.newColName.length > 0) {
                         item2.boardColNameFormActive = false;
                         item2.name = this.state.newColName;
                     }
