@@ -80,7 +80,7 @@ background: #af8d8d;
 
 .board {
     display: flex;
-    justify-content: space-between;
+    // justify-content: space-between;
     align-items: flex-start;
     width: 100vw;
     height: 95%;
@@ -91,17 +91,17 @@ background: #af8d8d;
 }
 
 .board__shortcuts {
-    display: none;
     margin-left: 10px;
     max-height: 94vh;
     padding: 0 5px 5px 5px;
+    animation: shortcuts--disactive 0.3s;
+    // width: 270px;
+    display: block;
+    background-color: rgba(0, 0, 0, 0.2);
+    min-height: 50px;
+    height: fit-content;
 
     &--active{
-        width: 270px;
-        display: block;
-        background-color: rgba(0, 0, 0, 0.2);
-        min-height: 50px;
-        height: fit-content;
         animation: shortcuts--active 0.3s;
     }
 }
@@ -111,13 +111,14 @@ background: #af8d8d;
     100% {transform: translateX(0);}
 }
 
+@keyframes shortcuts--disactive {
+    0% {transform: translateX(0);}
+    100% {transform: translateX(-280px);}
+}
+
 .board__shortcuts > ul {
     list-style: none;
 }
-
-// .board__shortcuts__mainList {
-//     width: 100%;
-// }
 
 .board__shortcuts__mainList_list {
     overflow-y: auto;
@@ -224,19 +225,11 @@ background: #af8d8d;
     overflow: auto;
     display: flex;
     animation: shortcuts--disactive 0.3s;
-    width: 100%;
-    z-index: 0;
-    
+
     &--active {
-        width: calc(100% - 280px);
         animation: shortcuts--active 0.3s;
     }
 
-}
-
-@keyframes shortcuts--disactive {
-    0% {transform: translateX(280px);}
-    100% {transform: translateX(0);}
 }
 
 .board__body > ul {

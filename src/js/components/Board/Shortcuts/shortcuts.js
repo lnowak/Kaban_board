@@ -64,7 +64,7 @@ class Shortcuts extends Component {
         
 
         return (
-            <div className={`board__section board__shortcuts ${menuActive ? 'board__shortcuts--active' : ''}`} >
+            <div className={`board__section board__shortcuts ${menuActive ? 'board__shortcuts--active' : ''} ${this.props.boardState.menuAnimationActive ? '' : 'none'}`} >
                 <ul>
                     <li className='board__shortcuts__mainList'>
                         <ul className='board__shortcuts__mainList_list' >

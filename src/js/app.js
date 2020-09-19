@@ -98,7 +98,7 @@ class Kanban extends Component {
         newTask: '',
         newColName: '',
         boardAddColFormAcvite: false,
-        // boardColNameFormActive: false,
+        menuAnimationActive: false,
     }
 
     handleBoardElementActive = () => {     
@@ -115,7 +115,19 @@ class Kanban extends Component {
             newTask: '',
             newColName: '',
             boardAddColFormAcvite: false,
+            // menuAnimationActive: !this.state.menuAnimationActive,
         });
+        if(this.state.menuActive) {
+            setTimeout( () => {
+                this.setState({
+                    menuAnimationActive: false,
+                })
+            }, 300)
+        } else {
+            this.setState({
+                menuAnimationActive: true,
+            })
+        }
     }
 
     handleEditListItem = (e) => {
