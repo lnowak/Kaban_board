@@ -204,13 +204,20 @@ class Kanban extends Component {
 
     listRemove = (e, id) => {
         e.preventDefault();
-        const newBoard = this.state.board.filter(item => {
+        const newActive = this.state.board.map(item1 => {
+            if (Number(id)-1 === item1.boardId && !item1.boardBodyActive) {
+                item1.boardBodyActive = true;
+                console.log(item1.boardId-1, Number(id)-1, item1.boardBodyActive );
+            }
+            return item1
+        });
+        const newBoard = newActive.filter(item => {
             if (Number(id) !== item.boardId) {
-                item.boardId !== item.boardId
+                item.boardId !== item.boardId;
                 return item
             }
-        })
-        this.setState({ 
+        });
+        this.setState({
             board: newBoard,
             backgroundActive: false,
         });
