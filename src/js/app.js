@@ -4,6 +4,7 @@ import './../sass/style.scss';
 
 import Header from './components/Header/header';
 import Board from './components/Board/board';
+import Background from './components/Background/background';
 
 class Kanban extends Component {
     state = {
@@ -99,6 +100,8 @@ class Kanban extends Component {
         newColName: '',
         boardAddColFormAcvite: false,
         menuAnimationActive: false,
+        backgroundActive: false,
+        editItemActive: false,
     }
 
     handleBoardElementActive = () => {     
@@ -139,7 +142,10 @@ class Kanban extends Component {
             }
             return e
         })
-        this.setState({ board: editActive })
+        this.setState({ 
+            board: editActive,
+            backgroundActive: true,
+        })
     }
 
     addNewList = () => {
@@ -152,19 +158,22 @@ class Kanban extends Component {
             // boardColNameFormActive: false,
             boardCol: [],
         };
-        this.setState({ board: [...this.state.board, newList] })
+        this.setState({ board: [...this.state.board, newList],})
     }
 
     backgroundOff = (e) => {
-        let id = Number(e.target.dataset.id);
         const newBoard = this.state.board.map(item => {
-            if (id === item.boardId) {
                 item.boardShortcutEditActive = false;
                 item.boardNewName = '';
-            }
             return item
         })
-        this.setState({ board: newBoard })
+        if(e.target.className === 'fullscreen__background') {
+            this.setState({ 
+                board: newBoard,
+                backgroundActive: false,
+                editItemActive: false,
+            })
+        }
     }
 
     listNameChange = (id, value) => {
@@ -187,7 +196,10 @@ class Kanban extends Component {
             }
             return item
         });
-        this.setState({ board: newBoard });
+        this.setState({ 
+            board: newBoard,
+            backgroundActive: false,
+        });
     }
 
     listRemove = (e, id) => {
@@ -198,7 +210,10 @@ class Kanban extends Component {
                 return item
             }
         })
-        this.setState({ board: newBoard });
+        this.setState({ 
+            board: newBoard,
+            backgroundActive: false,
+        });
     }
 
     showListBody = (id) => {
@@ -390,15 +405,19 @@ class Kanban extends Component {
         })
     }
 
+    editBackgroundOpen = () => {
+        this.setState({
+            backgroundActive: true,
+            editItemActive: true,
+        })
+    }
+
     render() {
-        const background = this.state.board.map(item => {
-            return <div key={item.boardId} data-id={item.boardId} className={`${item.boardShortcutEditActive ? 'fullscreen__background' : 'none'}`} onClick={this.backgroundOff}></div>
-        });
         return (
             <>
                 <Header handleBoardElementActive={this.handleBoardElementActive} headerState={this.state} />
-                <Board boardState={this.state} handleEditListItem={this.handleEditListItem} addNewList={this.addNewList} listNameChange={this.listNameChange} listNameSubmit={this.listNameSubmit} listRemove={this.listRemove} showListBody={this.showListBody} addNewColumnForm={this.addNewColumnForm} colNameChange={this.colNameChange} addNewColumn={this.addNewColumn} openNewInputAddForm={this.openNewInputAddForm} closeNewInputAddForm={this.closeNewInputAddForm} newColumnItemInputChange={this.newColumnItemInputChange} newColumnItemNameSave={this.newColumnItemNameSave} newColumnItemNameCancel={this.newColumnItemNameCancel} cancelActions={this.cancelActions} columnFormOpen={this.columnFormOpen}/>
-                {background}
+                <Board boardState={this.state} handleEditListItem={this.handleEditListItem} addNewList={this.addNewList} listNameChange={this.listNameChange} listNameSubmit={this.listNameSubmit} listRemove={this.listRemove} showListBody={this.showListBody} addNewColumnForm={this.addNewColumnForm} colNameChange={this.colNameChange} addNewColumn={this.addNewColumn} openNewInputAddForm={this.openNewInputAddForm} closeNewInputAddForm={this.closeNewInputAddForm} newColumnItemInputChange={this.newColumnItemInputChange} newColumnItemNameSave={this.newColumnItemNameSave} newColumnItemNameCancel={this.newColumnItemNameCancel} cancelActions={this.cancelActions} columnFormOpen={this.columnFormOpen} editBackgroundOpen={this.editBackgroundOpen}/>
+                <Background state={this.state} backgroundOff={this.backgroundOff}/>
             </>
         )
     }
