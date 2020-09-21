@@ -102,6 +102,7 @@ class Kanban extends Component {
         menuAnimationActive: false,
         backgroundActive: false,
         editItemActive: false,
+        bodyAnimationActive: false,
     }
 
     handleBoardElementActive = () => {     
@@ -118,18 +119,26 @@ class Kanban extends Component {
             newTask: '',
             newColName: '',
             boardAddColFormAcvite: false,
-            // menuAnimationActive: !this.state.menuAnimationActive,
+            bodyAnimationActive: !this.state.bodyAnimationActive,
         });
         if(this.state.menuActive) {
             setTimeout( () => {
                 this.setState({
                     menuAnimationActive: false,
                 })
-            }, 300)
+            }, 300);
+            this.setState({
+                bodyAnimationActive: false,
+            })
         } else {
             this.setState({
                 menuAnimationActive: true,
-            })
+            });
+            setTimeout( () => {
+                this.setState({
+                    bodyAnimationActive: true,
+                })
+            }, 300);
         }
     }
 
