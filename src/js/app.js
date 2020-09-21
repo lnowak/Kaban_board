@@ -24,6 +24,7 @@ class Kanban extends Component {
                         {
                             id: 1,
                             taskName: 'Podstawowa konfiguracja',
+                            detailedDescriptionOpen: false,
                         },
                     ],
                     newTask: '',
@@ -36,7 +37,8 @@ class Kanban extends Component {
                     tasks: [
                         {
                             id: 1,
-                            taskName: 'nazwa'
+                            taskName: 'nazwa',
+                            detailedDescriptionOpen: false,
                         }
                     ],
                     newTask: '',
@@ -49,7 +51,8 @@ class Kanban extends Component {
                     tasks: [
                         {
                             id: 1,
-                            taskName: 'nazwa'
+                            taskName: 'nazwa',
+                            detailedDescriptionOpen: false,
                         }
                     ],
                     newTask: '',
@@ -62,7 +65,8 @@ class Kanban extends Component {
                     tasks: [
                         {
                             id: 1,
-                            taskName: 'nazwa'
+                            taskName: 'nazwa',
+                            detailedDescriptionOpen: false,
                         }
                     ],
                     newTask: '',
@@ -75,7 +79,8 @@ class Kanban extends Component {
                     tasks: [
                         {
                             id: 1,
-                            taskName: 'nazwa'
+                            taskName: 'nazwa',
+                            detailedDescriptionOpen: false,
                         }
                     ],
                     newTask: '',
@@ -88,7 +93,8 @@ class Kanban extends Component {
                     tasks: [
                         {
                             id: 1,
-                            taskName: 'nazwa'
+                            taskName: 'nazwa',
+                            detailedDescriptionOpen: false,
                         }
                     ],
                     newTask: '',
@@ -176,7 +182,7 @@ class Kanban extends Component {
                 item.boardNewName = '';
             return item
         })
-        if(e.target.className === 'fullscreen__background') {
+        if(e.target.className === 'fullscreen__background' || e.target.className === 'detailed__description__header__closeButton') {
             this.setState({ 
                 board: newBoard,
                 backgroundActive: false,
@@ -356,6 +362,7 @@ class Kanban extends Component {
             id: Math.random(),
             // taskName: this.state.board.map(item1 => { item1.boardCol.map(item2 => item2.newTask) })
             taskName: newTask,
+            detailedDescriptionOpen: false,
         }
         const newBoard = this.state.board.map(item1 => {
             if(Number(boardId) === item1.boardId) {
@@ -421,8 +428,29 @@ class Kanban extends Component {
         })
     }
 
-    editBackgroundOpen = () => {
+    editBackgroundOpen = (e) => {
+        const newBoard = this.state.board.map(item1 => {
+            if (item1.boardBodyActive) {
+                item1.boardCol.map(item2 => {
+                    if(Number(e.target.dataset.boardid) === item2.id){
+                        item2.tasks.map(item3 => {
+                            if(item3.id === Number(e.target.dataset.id)) {
+                                item3.detailedDescriptionOpen = true;
+                            } else {
+                                item3.detailedDescriptionOpen = false;
+                            }
+                            return item3
+                        })
+                    } else {
+                        item2.tasks.map(item3 => {item3.detailedDescriptionOpen = false;})
+                    }
+                    return item2
+                })
+            }
+            return item1
+        })
         this.setState({
+            board: newBoard,
             backgroundActive: true,
             editItemActive: true,
         })

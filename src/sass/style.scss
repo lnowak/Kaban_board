@@ -40,7 +40,9 @@ background: #af8d8d;
 
 .fullscreen__background{
     background-color: rgba(0, 0, 0, 0.4);
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: absolute;
     height: 100vh;
     width: 100vw;
@@ -371,8 +373,15 @@ background: #af8d8d;
     margin-right: 5px;
 }
 
-.sth {
-    background-color: red;
-    height: 500px;
-    width: 500px;
+.detailed__description {
+    background-color: rgb(255, 255, 255);
+    height: 95%;
+    width: 45%;
+}
+
+.detailed__description__header {
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
 }

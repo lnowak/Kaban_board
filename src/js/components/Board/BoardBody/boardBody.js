@@ -52,15 +52,15 @@ class BoardBody extends Component {
         this.props.columnFormOpen(id, boardId);
     }
 
-    editBackgroundOpen = () => {
-        this.props.editBackgroundOpen();
+    editBackgroundOpen = (e) => {
+        this.props.editBackgroundOpen(e);
     }
 
     render() {
         const list = this.props.boardState.board.map(e=> {
             return (e.boardCol.map(item => {
 
-                const list = item.tasks.map(ie => <li key={ie.id} className='test12' onClick={this.editBackgroundOpen}>{ie.taskName}</li>);
+                const list = item.tasks.map(ie => <li key={ie.id} data-boardid={item.id} data-id={ie.id} className='test12' onClick={this.editBackgroundOpen}>{ie.taskName}</li>);
                 let button;
                 if(!item.openNewInputAddForm) {
                     button = <li className={`test12`} data-boardid={e.boardId} data-id={item.id} onClick={this.openNewInputAddForm}><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="plus" className="svg-inline--fa fa-plus fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"></path></svg>Dodaj nowy element</li>;
