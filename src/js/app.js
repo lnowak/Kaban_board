@@ -25,6 +25,8 @@ class Kanban extends Component {
                             id: 1,
                             taskName: 'Podstawowa konfiguracja',
                             detailedDescriptionOpen: false,
+                            desc: 'Podaj nowe dane',
+                            descActive: false,
                         },
                     ],
                     newTask: '',
@@ -39,6 +41,8 @@ class Kanban extends Component {
                             id: 1,
                             taskName: 'nazwa',
                             detailedDescriptionOpen: false,
+                            desc: '',
+                            descActive: false,
                         }
                     ],
                     newTask: '',
@@ -53,6 +57,8 @@ class Kanban extends Component {
                             id: 1,
                             taskName: 'nazwa',
                             detailedDescriptionOpen: false,
+                            desc: '',
+                            descActive: false,
                         }
                     ],
                     newTask: '',
@@ -67,6 +73,8 @@ class Kanban extends Component {
                             id: 1,
                             taskName: 'nazwa',
                             detailedDescriptionOpen: false,
+                            desc: '',
+                            descActive: false,
                         }
                     ],
                     newTask: '',
@@ -81,6 +89,8 @@ class Kanban extends Component {
                             id: 1,
                             taskName: 'nazwa',
                             detailedDescriptionOpen: false,
+                            desc: '',
+                            descActive: false,
                         }
                     ],
                     newTask: '',
@@ -95,6 +105,8 @@ class Kanban extends Component {
                             id: 1,
                             taskName: 'nazwa',
                             detailedDescriptionOpen: false,
+                            desc: '',
+                            descActive: false,
                         }
                     ],
                     newTask: '',
@@ -109,6 +121,9 @@ class Kanban extends Component {
         backgroundActive: false,
         editItemActive: false,
         bodyAnimationActive: false,
+        newDesc: 'Podaj Nazwę czegoś',
+        descActive: false,
+        detailedDescriptionOpen: false,
     }
 
     handleBoardElementActive = () => {     
@@ -177,16 +192,26 @@ class Kanban extends Component {
     }
 
     backgroundOff = (e) => {
-        const newBoard = this.state.board.map(item => {
-                item.boardShortcutEditActive = false;
-                item.boardNewName = '';
-            return item
+        const newBoard = this.state.board.map(item1 => {
+            item1.boardShortcutEditActive = false;
+            item1.boardNewName = '';
+            item1.boardCol.map( item2 => {
+                item2.tasks.map(item3 => {
+                    if (item3.descActive) {
+                        console.log(item3)
+                        item3.detailedDescriptionOpen = false;
+                    }
+                    
+                });
+            });
+            return item1
         })
         if(e.target.className === 'fullscreen__background' || e.target.className === 'detailed__description__header__closeButton') {
             this.setState({ 
                 board: newBoard,
                 backgroundActive: false,
                 editItemActive: false,
+                descActive: false,
             })
         }
     }
@@ -363,6 +388,8 @@ class Kanban extends Component {
             // taskName: this.state.board.map(item1 => { item1.boardCol.map(item2 => item2.newTask) })
             taskName: newTask,
             detailedDescriptionOpen: false,
+            desc: this.state.newDesc,
+            descActive: false,
         }
         const newBoard = this.state.board.map(item1 => {
             if(Number(boardId) === item1.boardId) {
@@ -456,12 +483,16 @@ class Kanban extends Component {
         })
     }
 
+    descFormActive = () => {
+        this.setState({descActive: true});
+    }
+
     render() {
         return (
             <>
                 <Header handleBoardElementActive={this.handleBoardElementActive} headerState={this.state} />
                 <Board boardState={this.state} handleEditListItem={this.handleEditListItem} addNewList={this.addNewList} listNameChange={this.listNameChange} listNameSubmit={this.listNameSubmit} listRemove={this.listRemove} showListBody={this.showListBody} addNewColumnForm={this.addNewColumnForm} colNameChange={this.colNameChange} addNewColumn={this.addNewColumn} openNewInputAddForm={this.openNewInputAddForm} closeNewInputAddForm={this.closeNewInputAddForm} newColumnItemInputChange={this.newColumnItemInputChange} newColumnItemNameSave={this.newColumnItemNameSave} newColumnItemNameCancel={this.newColumnItemNameCancel} cancelActions={this.cancelActions} columnFormOpen={this.columnFormOpen} editBackgroundOpen={this.editBackgroundOpen}/>
-                <Background state={this.state} backgroundOff={this.backgroundOff}/>
+                <Background state={this.state} backgroundOff={this.backgroundOff} descFormActive={this.descFormActive}/>
             </>
         )
     }

@@ -5,6 +5,10 @@ class Background extends Component {
 
     backgroundOff = (e) => {
         this.props.backgroundOff(e);
+    };
+
+    descFormActive = e => {
+        this.props.descFormActive();
     }
 
     render() {
@@ -20,6 +24,25 @@ class Background extends Component {
             }
         });
 
+        const desc = this.props.state.board.map(item1 => {
+            if (item1.boardBodyActive) {
+                return item1.boardCol.map( item2 => {
+                    return item2.tasks.map(item3 => {
+                        if(item3.detailedDescriptionOpen && !this.props.state.descActive) {
+                            return <div className='as' key={item3.id} onClick={this.descFormActive}>{item3.desc}</div>
+                        }
+                        if (item3.detailedDescriptionOpen && this.props.state.descActive) {
+                            return (
+                                <form key={item3.id} className='as'>
+                                    <textarea />
+                                </form>
+                            )
+                        }
+                    });
+                })
+            }
+        })
+
         return (
             <div className={`${this.props.state.backgroundActive ? 'fullscreen__background' : 'none'}`} onClick={this.backgroundOff}>
                 <div className={`${this.props.state.editItemActive ? 'detailed__description' : 'none'}`}>
@@ -33,7 +56,7 @@ class Background extends Component {
                                 <div className='card__detail__labels'></div>
                             </div>
                             <div className='card__detail__description'>
-
+                                {desc}
                             </div>
                             <div className='card__detail__checklist'>
 
