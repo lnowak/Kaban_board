@@ -380,7 +380,7 @@ class Kanban extends Component {
             // taskName: this.state.board.map(item1 => { item1.boardCol.map(item2 => item2.newTask) })
             taskName: newTask,
             detailedDescriptionOpen: false,
-            desc: this.state.newDesc,
+            desc: '',
             descActive: false,
         }
         const newBoard = this.state.board.map(item1 => {
@@ -501,7 +501,7 @@ class Kanban extends Component {
         this.setState({board: newBoard});
     }
 
-    render() {
+    render() {     
         return (
             <>
                 <Header handleBoardElementActive={this.handleBoardElementActive} headerState={this.state} />

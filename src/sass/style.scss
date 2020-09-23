@@ -385,3 +385,18 @@ background: #af8d8d;
     justify-content: space-between;
     align-items: flex-start;
 }
+
+.as {
+    max-height: 75px;
+    min-height: 38px;
+    resize: none;
+    width: 75%;
+    padding: 9px;
+    box-sizing: border-box;
+    font-size: 15px;
+    border: none;
+}
+
+.as:focus {
+    outline: 1px solid red;
+}

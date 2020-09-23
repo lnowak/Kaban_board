@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import ReactDOM, { render } from 'react-dom';
+import autosize from 'autosize';
 
 class Background extends Component {
 
@@ -16,6 +17,7 @@ class Background extends Component {
     }
 
     render() {
+
         const name = this.props.state.board.map( item1 => {
             if (item1.boardBodyActive) {
                 return item1.boardCol.map( item2 => {
@@ -32,13 +34,13 @@ class Background extends Component {
             if (item1.boardBodyActive) {
                 return item1.boardCol.map( item2 => {
                     return item2.tasks.map(item3 => {
-                        if(item3.detailedDescriptionOpen && !this.props.state.descActive) {
-                            return <div className='as' key={item3.id} onClick={this.descFormActive}>{item3.desc.length === 0 ? 'Podaj szczegółowy opis' : item3.desc}</div>
-                        }
-                        if (item3.detailedDescriptionOpen && this.props.state.descActive) {
+                        // if(item3.detailedDescriptionOpen && !this.props.state.descActive) {
+                        //     return <div className='as' key={item3.id} onClick={this.descFormActive}>{item3.desc.length === 0 ? 'Podaj szczegółowy opis' : item3.desc}</div>
+                        // }
+                        if (item3.detailedDescriptionOpen ) {
                             return (
-                                <form key={item3.id} className='as'>
-                                    <textarea data-id={item3.id} data-colid={item2.id} onChange={this.descriptionChange} placeholder='Podaj szczegółowy opis...' value={item3.desc}/>
+                                <form key={item3.id} className='aas'>
+                                    <textarea className='as' data-id={item3.id} data-colid={item2.id} onChange={this.descriptionChange} placeholder='Podaj szczegółowy opis...' value={item3.desc} ref={c=>this.textarea=c} rows={1} />
                                 </form>
                             )
                         }
