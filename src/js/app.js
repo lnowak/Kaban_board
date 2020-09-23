@@ -25,7 +25,7 @@ class Kanban extends Component {
                             id: 1,
                             taskName: 'Podstawowa konfiguracja',
                             detailedDescriptionOpen: false,
-                            desc: 'Podaj nowe dane',
+                            desc: '',
                             descActive: false,
                         },
                     ],
@@ -121,15 +121,16 @@ class Kanban extends Component {
         backgroundActive: false,
         editItemActive: false,
         bodyAnimationActive: false,
-        newDesc: 'Podaj Nazwę czegoś',
+        newDesc: 'Podaj szczegółowy opis...',
         descActive: false,
         detailedDescriptionOpen: false,
     }
 
-    handleBoardElementActive = () => {     
+    handleBoardElementActive = () => {
         const newBoard = this.state.board.map(item1 => {
             item1.boardCol.map(item2 => {
                 item2.openNewInputAddForm = false;
+                item2.boardColNameFormActive = false;
                 return item2
             })
             return item1
@@ -140,7 +141,6 @@ class Kanban extends Component {
             newTask: '',
             newColName: '',
             boardAddColFormAcvite: false,
-            bodyAnimationActive: !this.state.bodyAnimationActive,
         });
         if(this.state.menuActive) {
             setTimeout( () => {
@@ -148,18 +148,10 @@ class Kanban extends Component {
                     menuAnimationActive: false,
                 })
             }, 300);
-            this.setState({
-                bodyAnimationActive: false,
-            })
         } else {
             this.setState({
                 menuAnimationActive: true,
             });
-            setTimeout( () => {
-                this.setState({
-                    bodyAnimationActive: true,
-                })
-            }, 300);
         }
     }
 
@@ -424,13 +416,14 @@ class Kanban extends Component {
                     return item2
                 })
                 return item1
-            })
+            });
             this.setState({
                 board: newBoard,
                 newTask: '',
                 boardAddColFormAcvite: false,
                 newColName: '',
-            })
+                descActive: false,
+            });
         }
     }
 
@@ -487,12 +480,33 @@ class Kanban extends Component {
         this.setState({descActive: true});
     }
 
+    descriptionChange = (e) => {
+        const newDesc = e.target.value;
+        const newBoard = this.state.board.map(item1 => {
+            if(item1.boardBodyActive) {
+                item1.boardCol.map( item2 => {
+                    if (Number(e.target.dataset.colid) === item2.id) {
+                        item2.tasks.map( item3 => {
+                            if (Number(e.target.dataset.id) === item3.id){
+                                item3.desc = newDesc;
+                            }
+                            return item3
+                        })
+                    }
+                    return item2
+                })
+            }
+            return item1
+        });
+        this.setState({board: newBoard});
+    }
+
     render() {
         return (
             <>
                 <Header handleBoardElementActive={this.handleBoardElementActive} headerState={this.state} />
                 <Board boardState={this.state} handleEditListItem={this.handleEditListItem} addNewList={this.addNewList} listNameChange={this.listNameChange} listNameSubmit={this.listNameSubmit} listRemove={this.listRemove} showListBody={this.showListBody} addNewColumnForm={this.addNewColumnForm} colNameChange={this.colNameChange} addNewColumn={this.addNewColumn} openNewInputAddForm={this.openNewInputAddForm} closeNewInputAddForm={this.closeNewInputAddForm} newColumnItemInputChange={this.newColumnItemInputChange} newColumnItemNameSave={this.newColumnItemNameSave} newColumnItemNameCancel={this.newColumnItemNameCancel} cancelActions={this.cancelActions} columnFormOpen={this.columnFormOpen} editBackgroundOpen={this.editBackgroundOpen}/>
-                <Background state={this.state} backgroundOff={this.backgroundOff} descFormActive={this.descFormActive}/>
+                <Background state={this.state} backgroundOff={this.backgroundOff} descFormActive={this.descFormActive} descriptionChange={this.descriptionChange}/>
             </>
         )
     }
