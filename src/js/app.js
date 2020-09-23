@@ -25,7 +25,7 @@ class Kanban extends Component {
                             id: 1,
                             taskName: 'Podstawowa konfiguracja',
                             detailedDescriptionOpen: false,
-                            desc: '',
+                            desc: 'dsa',
                             descActive: false,
                         },
                     ],
@@ -121,7 +121,7 @@ class Kanban extends Component {
         backgroundActive: false,
         editItemActive: false,
         bodyAnimationActive: false,
-        newDesc: 'Podaj szczegółowy opis...',
+        newDesc: '',
         descActive: false,
         detailedDescriptionOpen: false,
     }
@@ -413,6 +413,12 @@ class Kanban extends Component {
                         item2.boardColNameFormActive = false;
                         item2.name = this.state.newColName;
                     }
+                    item2.tasks.map(item3 => {
+                        if (Number(e.target.dataset.id) === item3.id) {
+                            item3.desc = this.state.newDesc;
+                        }
+                        return item3
+                    })
                     return item2
                 })
                 return item1
@@ -476,19 +482,40 @@ class Kanban extends Component {
         })
     }
 
-    descFormActive = () => {
-        this.setState({descActive: true});
+    descFormActive = (e) => {
+        const newDesc = this.state.board.map(item1 => {
+            if (item1.boardBodyActive) {
+                return item1.boardCol.map(item2 => {
+                    if (Number(e.target.dataset.colid) === item2.id) {
+                        return item2.tasks.map(item3 => {
+                            if (Number(e.target.dataset.id) === item3.id)
+                            return item3.desc
+                        })
+                    }
+                    
+                })
+            }
+        })
+        
+        this.setState({descActive: true, newDesc: newDesc});
     }
 
     descriptionChange = (e) => {
-        const newDesc = e.target.value;
+        this.setState({newDesc: e.target.value});
+    }
+
+    descFormSave = e => {
+        e.preventDefault();
         const newBoard = this.state.board.map(item1 => {
-            if(item1.boardBodyActive) {
-                item1.boardCol.map( item2 => {
+            if (item1.boardBodyActive) {
+                item1.boardCol.map(item2 => {
+                    console.log(e.target.dataset.colid, item2.id)
                     if (Number(e.target.dataset.colid) === item2.id) {
+                        console.log(item2)
                         item2.tasks.map( item3 => {
-                            if (Number(e.target.dataset.id) === item3.id){
-                                item3.desc = newDesc;
+                            if (Number(e.target.dataset.id) === item3.id) {
+                                item3.desc = this.state.newDesc;
+                                console.log(item3);
                             }
                             return item3
                         })
@@ -497,8 +524,12 @@ class Kanban extends Component {
                 })
             }
             return item1
-        });
-        this.setState({board: newBoard});
+        })
+        this.setState({
+            board: newBoard,
+            newDesc: '',
+            descActive: false,
+        })
     }
 
     render() {     
@@ -506,7 +537,7 @@ class Kanban extends Component {
             <>
                 <Header handleBoardElementActive={this.handleBoardElementActive} headerState={this.state} />
                 <Board boardState={this.state} handleEditListItem={this.handleEditListItem} addNewList={this.addNewList} listNameChange={this.listNameChange} listNameSubmit={this.listNameSubmit} listRemove={this.listRemove} showListBody={this.showListBody} addNewColumnForm={this.addNewColumnForm} colNameChange={this.colNameChange} addNewColumn={this.addNewColumn} openNewInputAddForm={this.openNewInputAddForm} closeNewInputAddForm={this.closeNewInputAddForm} newColumnItemInputChange={this.newColumnItemInputChange} newColumnItemNameSave={this.newColumnItemNameSave} newColumnItemNameCancel={this.newColumnItemNameCancel} cancelActions={this.cancelActions} columnFormOpen={this.columnFormOpen} editBackgroundOpen={this.editBackgroundOpen}/>
-                <Background state={this.state} backgroundOff={this.backgroundOff} descFormActive={this.descFormActive} descriptionChange={this.descriptionChange}/>
+                <Background state={this.state} descFormSave={this.descFormSave} backgroundOff={this.backgroundOff} descFormActive={this.descFormActive} descriptionChange={this.descriptionChange}/>
             </>
         )
     }
