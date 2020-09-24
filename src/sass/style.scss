@@ -400,3 +400,22 @@ background: #af8d8d;
 .as:focus {
     outline: 1px solid red;
 }
+
+.form__desc {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.form__desc button {
+    display: none;
+}
+
+.form__desc:focus-within button {
+    display: block;
+}
+
+.form__desc button:focus {
+    display: none;
+}

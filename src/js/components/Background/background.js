@@ -13,7 +13,6 @@ class Background extends Component {
     }
 
     render() {
-
         const name = this.props.state.board.map( item1 => {
             if (item1.boardBodyActive) {
                 return item1.boardCol.map( item2 => {
@@ -35,7 +34,7 @@ class Background extends Component {
                         // }
                         if (item3.detailedDescriptionOpen) {
                             return (
-                                <form data-id={item3.id} data-colid={item2.id} onSubmit={this.descFormSave} key={item3.id}>
+                                <form className='form__desc' data-id={item3.id} data-colid={item2.id} onSubmit={this.descFormSave} key={item3.id}>
                                     <TextArea state={this.props.state} descriptionChange={this.props.descriptionChange} id={item3.id} colid={item2.id} desc={item3.desc} newDesc={item3.newDesc} />
                                     <button >Zapisz</button>                                
                                 </form>
