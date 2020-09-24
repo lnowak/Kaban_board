@@ -8,10 +8,6 @@ class Background extends Component {
         this.props.backgroundOff(e);
     };
 
-    descFormActive = e => {
-        this.props.descFormActive(e);
-    }
-
     descFormSave = e => {
         this.props.descFormSave(e);
     }
@@ -34,13 +30,13 @@ class Background extends Component {
             if (item1.boardBodyActive) {
                 return item1.boardCol.map( item2 => {
                     return item2.tasks.map(item3 => {
-                        if(item3.detailedDescriptionOpen && !this.props.state.descActive) {
-                            return <div className='as' key={item3.id} data-colid={item2.id} data-id={item3.id} onClick={this.descFormActive}>{item3.desc.length === 0 ? 'Podaj szczegółowy opis' : item3.desc}</div>
-                        }
+                        // if(item3.detailedDescriptionOpen && !this.props.state.descActive) {
+                        //     return <div className='as' key={item3.id} data-colid={item2.id} data-id={item3.id} onClick={this.descFormActive}>{item3.desc.length === 0 ? 'Podaj szczegółowy opis' : item3.desc}</div>
+                        // }
                         if (item3.detailedDescriptionOpen) {
                             return (
                                 <form data-id={item3.id} data-colid={item2.id} onSubmit={this.descFormSave} key={item3.id}>
-                                    <TextArea state={this.props.state} onClick={this.descFormActive} descriptionChange={this.props.descriptionChange} id={item3.id} desc={item3.desc}/>
+                                    <TextArea state={this.props.state} descriptionChange={this.props.descriptionChange} id={item3.id} colid={item2.id} desc={item3.desc} newDesc={item3.newDesc} />
                                     <button >Zapisz</button>                                
                                 </form>
                             )
@@ -96,7 +92,7 @@ class TextArea extends Component {
 
     render(){
         return (
-            <textarea className='as' data-id={this.props.id} data-colid={this.props.id} onChange={this.descriptionChange} placeholder='Podaj szczegółowy opis...' value={this.props.state.newDesc} ref={c=>this.textarea=c} rows={1} />
+            <textarea className='as' data-id={this.props.id} data-colid={this.props.colid} onChange={this.descriptionChange} placeholder='Podaj szczegółowy opis...' value={this.props.newDesc} ref={c=>this.textarea=c} rows={1} />
         );
     }
 }

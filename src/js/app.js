@@ -27,6 +27,7 @@ class Kanban extends Component {
                             detailedDescriptionOpen: false,
                             desc: 'dsa',
                             descActive: false,
+                            newDesc: '',
                         },
                     ],
                     newTask: '',
@@ -43,6 +44,7 @@ class Kanban extends Component {
                             detailedDescriptionOpen: false,
                             desc: '',
                             descActive: false,
+                            newDesc: '',
                         }
                     ],
                     newTask: '',
@@ -59,6 +61,7 @@ class Kanban extends Component {
                             detailedDescriptionOpen: false,
                             desc: '',
                             descActive: false,
+                            newDesc: '',
                         }
                     ],
                     newTask: '',
@@ -75,6 +78,7 @@ class Kanban extends Component {
                             detailedDescriptionOpen: false,
                             desc: '',
                             descActive: false,
+                            newDesc: '',
                         }
                     ],
                     newTask: '',
@@ -91,6 +95,7 @@ class Kanban extends Component {
                             detailedDescriptionOpen: false,
                             desc: '',
                             descActive: false,
+                            newDesc: '',
                         }
                     ],
                     newTask: '',
@@ -107,6 +112,7 @@ class Kanban extends Component {
                             detailedDescriptionOpen: false,
                             desc: '',
                             descActive: false,
+                            newDesc: '',
                         }
                     ],
                     newTask: '',
@@ -184,21 +190,20 @@ class Kanban extends Component {
     }
 
     backgroundOff = (e) => {
-        const newBoard = this.state.board.map(item1 => {
-            item1.boardShortcutEditActive = false;
-            item1.boardNewName = '';
-            item1.boardCol.map( item2 => {
-                item2.tasks.map(item3 => {
-                    if (item3.descActive) {
-                        console.log(item3)
-                        item3.detailedDescriptionOpen = false;
-                    }
-                    
-                });
-            });
-            return item1
-        })
         if(e.target.className === 'fullscreen__background' || e.target.className === 'detailed__description__header__closeButton') {
+            const newBoard = this.state.board.map(item1 => {
+                item1.boardShortcutEditActive = false;
+                item1.boardNewName = '';
+                item1.boardCol.map( item2 => {
+                    item2.tasks.map(item3 => {
+                        item3.newDesc = item3.desc;
+                        return item3
+                    });
+                    return item2
+                });
+                return item1
+            })
+            
             this.setState({ 
                 board: newBoard,
                 backgroundActive: false,
@@ -382,6 +387,7 @@ class Kanban extends Component {
             detailedDescriptionOpen: false,
             desc: '',
             descActive: false,
+            newDesc: '',
         }
         const newBoard = this.state.board.map(item1 => {
             if(Number(boardId) === item1.boardId) {
@@ -413,12 +419,6 @@ class Kanban extends Component {
                         item2.boardColNameFormActive = false;
                         item2.name = this.state.newColName;
                     }
-                    item2.tasks.map(item3 => {
-                        if (Number(e.target.dataset.id) === item3.id) {
-                            item3.desc = this.state.newDesc;
-                        }
-                        return item3
-                    })
                     return item2
                 })
                 return item1
@@ -482,26 +482,24 @@ class Kanban extends Component {
         })
     }
 
-    descFormActive = (e) => {
-        const newDesc = this.state.board.map(item1 => {
-            if (item1.boardBodyActive) {
-                return item1.boardCol.map(item2 => {
+    descriptionChange = (e) => {
+        const newBoard = this.state.board.map(item1 => {
+            if(item1.boardBodyActive) {
+                item1.boardCol.map(item2 => {
                     if (Number(e.target.dataset.colid) === item2.id) {
-                        return item2.tasks.map(item3 => {
-                            if (Number(e.target.dataset.id) === item3.id)
-                            return item3.desc
+                        item2.tasks.map( item3 => {
+                            if (Number(e.target.dataset.id) === item3.id) {
+                                item3.newDesc = e.target.value;
+                            }
+                            return item3
                         })
                     }
-                    
+                    return item2
                 })
             }
-        })
-        
-        this.setState({descActive: true, newDesc: newDesc});
-    }
-
-    descriptionChange = (e) => {
-        this.setState({newDesc: e.target.value});
+            return item1
+        });
+        this.setState({board: newBoard});
     }
 
     descFormSave = e => {
@@ -509,13 +507,13 @@ class Kanban extends Component {
         const newBoard = this.state.board.map(item1 => {
             if (item1.boardBodyActive) {
                 item1.boardCol.map(item2 => {
-                    console.log(e.target.dataset.colid, item2.id)
+                    // console.log(e.target.dataset.colid, item2.id)
                     if (Number(e.target.dataset.colid) === item2.id) {
-                        console.log(item2)
+                        // console.log(item2)
                         item2.tasks.map( item3 => {
                             if (Number(e.target.dataset.id) === item3.id) {
-                                item3.desc = this.state.newDesc;
-                                console.log(item3);
+                                item3.desc = item3.newDesc;
+                                // console.log(item3);
                             }
                             return item3
                         })
