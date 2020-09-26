@@ -81,7 +81,6 @@ class Background extends Component {
 
 class TextArea extends Component {
     componentDidMount(){
-       this.textarea.focus();
        autosize(this.textarea);
     }
 

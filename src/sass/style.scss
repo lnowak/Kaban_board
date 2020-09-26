@@ -410,12 +410,21 @@ background: #af8d8d;
 
 .form__desc button {
     display: none;
+
 }
 
 .form__desc:focus-within button {
     display: block;
+    z-index: 2;
 }
 
 .form__desc button:focus {
-    display: none;
+    z-index: -1;
+    animation: disappear 0.2s
+}
+
+@keyframes disappear {
+0% {z-index: 2;}
+90%{z-index: 2;}
+100% {z-index: -1;}
 }
