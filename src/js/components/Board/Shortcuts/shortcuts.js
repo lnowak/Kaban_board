@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import ReactDOM, { render } from 'react-dom';
 
 
 
@@ -43,7 +42,7 @@ class Shortcuts extends Component {
                 return (
                     <li key={item.boardId} className='board__shortcuts__listItem--editActive' data-id={item.boardId} >
                         <form className='board__shortcuts__form' data-id={item.boardId} onSubmit={this.listNameSubmit}>
-                            <input className='list_input_text' type='text' data-id={item.boardId} onChange={this.listNameChange} value={item.boardNewName} />
+                            <input className='list_input_text' autoFocus type='text' data-id={item.boardId} onChange={this.listNameChange} value={item.boardNewName} />
                             <div className='board__shortcuts__form__buttons'>
                                 <button className='btn'>Zapisz</button>
                                 <button className='btn' data-id={item.boardId} onClick={this.listRemove}>Usuń listę</button>

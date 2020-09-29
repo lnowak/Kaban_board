@@ -80,7 +80,7 @@ class BoardBody extends Component {
                     name = <span data-id={item.id} data-boardid={e.boardId} className='boardBody__column__name' onClick={this.columnFormOpen}>{item.name}</span>
                 } else {
                     name = <form className='form' data-id={item.id} data-boardid={e.boardId} onSubmit={this.newColumnItemNameSave} onKeyDown={this.cancelActions}>
-                        <input className='list_input_text' data-id={item.id} type='text' placeholder='Wpisz nazwę karty' value={this.props.boardState.newColName} onChange={this.colNameChange}/>
+                        <input className='list_input_text' autoFocus data-id={item.id} type='text' placeholder='Wpisz nazwę karty' value={this.props.boardState.newColName} onChange={this.colNameChange}/>
                     </form>
                 }
 
