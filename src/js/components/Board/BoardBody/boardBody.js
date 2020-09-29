@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import ReactDOM, { render } from 'react-dom';
 
 class BoardBody extends Component {
 
@@ -80,7 +79,7 @@ class BoardBody extends Component {
                 if (!item.boardColNameFormActive) {
                     name = <span data-id={item.id} data-boardid={e.boardId} className='boardBody__column__name' onClick={this.columnFormOpen}>{item.name}</span>
                 } else {
-                    name = <form className='form' data-id={item.id} data-boardid={e.boardId}onSubmit={this.newColumnItemNameSave}>
+                    name = <form className='form' data-id={item.id} data-boardid={e.boardId} onSubmit={this.newColumnItemNameSave} onKeyDown={this.cancelActions}>
                         <input className='list_input_text' data-id={item.id} type='text' placeholder='Wpisz nazwę karty' value={this.props.boardState.newColName} onChange={this.colNameChange}/>
                     </form>
                 }

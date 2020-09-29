@@ -321,7 +321,6 @@ class Kanban extends Component {
         if(this.state.newColName.length < 1) {
             this.addNewColumnForm();
         }
-        // e.stopPropagation();
     }
 
     newColumnItemNameCancel = (e) => {
@@ -407,11 +406,11 @@ class Kanban extends Component {
         });
         if (this.state.newTask.length > 0) {
             this.openNewInputAddForm(id, boardId);
-        }
+        }        
     }
 
     cancelActions = (e) => {
-        if (e.target.className === 'lis') {
+        if (e.target.className === 'lis' || e.key === 'Enter') {
             const newBoard = this.state.board.map(item1 => {
                 item1.boardCol.map(item2 => {
                     item2.openNewInputAddForm = false;
