@@ -177,6 +177,10 @@ class Kanban extends Component {
     }
 
     addNewList = () => {
+        let a = this.state.board.filter((e, index) => {
+            return e.id = index
+        });
+        console.log(this.state.board, a)
         const newList = {
             boardName: `Lista ${this.state.board.length > 0 ? this.state.board[this.state.board.length-1].boardId+1 : 1}`,
             boardId: this.state.board.length > 0 ? this.state.board[this.state.board.length-1].boardId+1 : 1,
