@@ -266,9 +266,32 @@ background: #af8d8d;
     z-index: 1;
 }
 
+.boardBody__column__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px 0 10px;
+}
+
+.boardBody__column__header__options {
+    font-weight: 600;
+    cursor: pointer;
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    font-size: 25px;
+}
+
+.boardBody__column__header__options:hover {
+    border-radius: 10%;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
 .boardBody__column__name {
     height: 35px;
-    width: 250px;
+    width: 230px;
+    padding-left: 7px;
+    margin-top: 5px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -276,6 +299,23 @@ background: #af8d8d;
     overflow: hidden;
     word-break: break-word;
     white-space: normal;
+}
+
+.boardBody__column__name__input {
+    width: 220px;
+    height: 35px;
+    margin: 0;
+    font-size: 16px;
+    padding-left: 2px;
+}
+
+.boardBody__column__name__form {
+    width: 230px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 5px;
 }
 
 .board__backlog {
@@ -379,7 +419,7 @@ background: #af8d8d;
 }
 
 .detailed__description__header {
-    height: 60px;
+    height: auto;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -442,6 +482,11 @@ background: #af8d8d;
 .detailed__description__header__title {
     padding: 10px 0 0 20px;
     margin-bottom: 10px;
+    width: 90%;
+    overflow: hidden;
+    word-break: break-word;
+    white-space: normal;
+    font-size: 20px;
 }
 
 .card__detail__description {

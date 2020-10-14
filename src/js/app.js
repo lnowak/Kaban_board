@@ -248,7 +248,7 @@ class Kanban extends Component {
         const newActive = this.state.board.map(item1 => {
             if (Number(id)-1 === item1.boardId && !item1.boardBodyActive) {
                 item1.boardBodyActive = true;
-                console.log(item1.boardId-1, Number(id)-1, item1.boardBodyActive );
+                // console.log(item1.boardId-1, Number(id)-1, item1.boardBodyActive );
             }
             return item1
         });
@@ -325,6 +325,29 @@ class Kanban extends Component {
         if(this.state.newColName.length < 1) {
             this.addNewColumnForm();
         }
+    }
+
+    removeColumn = e => {
+        // console.log('dziala', e.target);
+        const newBoard = this.state.board.map(item1 => {
+            if (item1.boardBodyActive) {
+                item1.boardCol.filter( item2 => {
+                    if (Number(e.target.dataset.colid) !== item2.id) {
+                        // console.log(item2.id)
+                        item2.id === item2.id;
+                        return item2
+                    }
+                    console.log(item2)
+                    // return item2
+                })
+            }
+            return item1
+        });
+        // console.log(newBoard);
+
+        this.setState({
+            board: newBoard,
+        })
     }
 
     newColumnItemNameCancel = (e) => {
@@ -537,7 +560,7 @@ class Kanban extends Component {
         return (
             <>
                 <Header handleBoardElementActive={this.handleBoardElementActive} headerState={this.state} />
-                <Board boardState={this.state} handleEditListItem={this.handleEditListItem} addNewList={this.addNewList} listNameChange={this.listNameChange} listNameSubmit={this.listNameSubmit} listRemove={this.listRemove} showListBody={this.showListBody} addNewColumnForm={this.addNewColumnForm} colNameChange={this.colNameChange} addNewColumn={this.addNewColumn} openNewInputAddForm={this.openNewInputAddForm} closeNewInputAddForm={this.closeNewInputAddForm} newColumnItemInputChange={this.newColumnItemInputChange} newColumnItemNameSave={this.newColumnItemNameSave} newColumnItemNameCancel={this.newColumnItemNameCancel} cancelActions={this.cancelActions} columnFormOpen={this.columnFormOpen} editBackgroundOpen={this.editBackgroundOpen}/>
+                <Board removeColumn={this.removeColumn} boardState={this.state} handleEditListItem={this.handleEditListItem} addNewList={this.addNewList} listNameChange={this.listNameChange} listNameSubmit={this.listNameSubmit} listRemove={this.listRemove} showListBody={this.showListBody} addNewColumnForm={this.addNewColumnForm} colNameChange={this.colNameChange} addNewColumn={this.addNewColumn} openNewInputAddForm={this.openNewInputAddForm} closeNewInputAddForm={this.closeNewInputAddForm} newColumnItemInputChange={this.newColumnItemInputChange} newColumnItemNameSave={this.newColumnItemNameSave} newColumnItemNameCancel={this.newColumnItemNameCancel} cancelActions={this.cancelActions} columnFormOpen={this.columnFormOpen} editBackgroundOpen={this.editBackgroundOpen}/>
                 <Background state={this.state} descFormSave={this.descFormSave} backgroundOff={this.backgroundOff} descFormActive={this.descFormActive} descriptionChange={this.descriptionChange}/>
             </>
         )

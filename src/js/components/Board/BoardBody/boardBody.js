@@ -55,6 +55,10 @@ class BoardBody extends Component {
         this.props.editBackgroundOpen(e);
     }
 
+    removeColumn = e => {
+        this.props.removeColumn(e);
+    }
+
     render() {
         const list = this.props.boardState.board.map(e=> {
             return (e.boardCol.map(item => {
@@ -66,7 +70,7 @@ class BoardBody extends Component {
                 } else {
                     button = (
                         <form className='form' data-id={item.id} data-boardid={e.boardId}onSubmit={this.newColumnItemNameSave}>
-                            <textarea className='input_text' data-id={item.id} type='text' placeholder='Podaj tytuł karty' value={this.props.boardState.newTask} onChange={this.newColumnItemInputChange}/>
+                            <textarea className='input_text' autoFocus data-id={item.id} type='text' placeholder='Podaj tytuł karty' value={this.props.boardState.newTask} onChange={this.newColumnItemInputChange}/>
                             <div className='buttons'>
                                 <input data-id={item.id} type='submit' value='Dodaj'/>
                                 <input data-id={item.id} data-boardid={e.boardId} type='submit' value='Zakmnij' onClick={this.closeNewInputAddForm}/>
@@ -79,15 +83,17 @@ class BoardBody extends Component {
                 if (!item.boardColNameFormActive) {
                     name = <span data-id={item.id} data-boardid={e.boardId} className='boardBody__column__name' onClick={this.columnFormOpen}>{item.name}</span>
                 } else {
-                    name = <form className='form' data-id={item.id} data-boardid={e.boardId} onSubmit={this.newColumnItemNameSave} onKeyDown={this.cancelActions}>
-                        <input className='list_input_text' autoFocus data-id={item.id} type='text' placeholder='Wpisz nazwę karty' value={this.props.boardState.newColName} onChange={this.colNameChange}/>
+                    name = <form className='boardBody__column__name__form' data-id={item.id} data-boardid={e.boardId} onSubmit={this.newColumnItemNameSave} onKeyDown={this.cancelActions}>
+                        <input className='list_input_text boardBody__column__name__input' autoFocus data-id={item.id} type='text' placeholder='Wpisz nazwę karty' value={this.props.boardState.newColName} onChange={this.colNameChange}/>
                     </form>
                 }
 
                 return (
                     <li data-id={item.id} key={`${item.id}`} className={`boardBody__column ${e.boardBodyActive ? '' : 'none'} ` }>
-                        {/* <span className='boardBody__column__name' onClick={this.columnFormOpen}>{item.name}</span> */}
-                        {name}
+                        <div className='boardBody__column__header'>
+                            {name}
+                            <span className='boardBody__column__header__options' data-colid={item.id} onClick={this.removeColumn} title='Usuń listę'>x</span>
+                        </div>
                         <ul className='testlist1'>
                             <li>
                                 <ul className='testlist2'>
