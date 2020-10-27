@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import ScrollContainer from 'react-indiana-drag-scroll';
 
 class BoardBody extends Component {
 
@@ -81,13 +82,12 @@ class BoardBody extends Component {
 
                 let name;
                 if (!item.boardColNameFormActive) {
-                    name = <span data-id={item.id} data-boardid={e.boardId} className='boardBody__column__name' onClick={this.columnFormOpen}>{item.name}</span>
+                    name = <span data-id={item.id} data-boardid={e.boardId} className='boardBody__column__name' onClick={this.columnFormOpen} rows={2}>{item.name.length < 50 ? item.name : item.name.substring(0, 50)}</span>
                 } else {
                     name = <form className='boardBody__column__name__form' data-id={item.id} data-boardid={e.boardId} onSubmit={this.newColumnItemNameSave} onKeyDown={this.cancelActions}>
-                        <input className='list_input_text boardBody__column__name__input' autoFocus data-id={item.id} type='text' placeholder='Wpisz nazwę karty' value={this.props.boardState.newColName} onChange={this.colNameChange}/>
+                        <textarea className='list_input_text boardBody__column__name__input' autoFocus data-id={item.id} type='text' placeholder='Wpisz nazwę karty' value={this.props.boardState.newColName} onChange={this.colNameChange}/>
                     </form>
                 }
-                console.log(index)
                 return (
                     <li data-id={item.id} key={`${item.id}`} className={`boardBody__column ${e.boardBodyActive ? '' : 'none'} ` }>
                         <div className='boardBody__column__header'>
@@ -122,10 +122,10 @@ class BoardBody extends Component {
 
         return (
             <div className={`board__section board__body ${this.props.boardState.menuActive ? 'board__body--active' : ''} `}>
-                <ul className='lis' onClick={this.cancelActions} >
-                    {list}
-                    {newColButton}
-                </ul>
+                    <ul className='lis' onClick={this.cancelActions} >
+                        {list}
+                        {newColButton}
+                    </ul>
             </div>
         )
     }

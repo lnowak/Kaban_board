@@ -288,22 +288,30 @@ background: #af8d8d;
 }
 
 .boardBody__column__name {
-    height: 35px;
+    height: 36px;
     width: 230px;
     padding-left: 7px;
     margin-top: 5px;
     display: flex;
     justify-content: flex-start;
-    align-items: center;
+    align-items: flex-start;
     cursor: pointer;
     overflow: hidden;
     word-break: break-word;
     white-space: normal;
 }
 
+.kont {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
 .boardBody__column__name__input {
     width: 220px;
-    height: 35px;
+    height: 36px;
+    resize: none;
     margin: 0;
     font-size: 16px;
     padding-left: 2px;
