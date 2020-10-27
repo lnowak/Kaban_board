@@ -55,13 +55,13 @@ class BoardBody extends Component {
         this.props.editBackgroundOpen(e);
     }
 
-    removeColumn = e => {
-        this.props.removeColumn(e);
+    removeColumn = (e, index) => {
+        this.props.removeColumn(e, index);
     }
 
     render() {
         const list = this.props.boardState.board.map(e=> {
-            return (e.boardCol.map(item => {
+            return (e.boardCol.map( (item, index) => {
 
                 const list = item.tasks.map(ie => <li key={ie.id} data-boardid={item.id} data-id={ie.id} className='test12' onClick={this.editBackgroundOpen}>{ie.taskName}</li>);
                 let button;
@@ -87,12 +87,12 @@ class BoardBody extends Component {
                         <input className='list_input_text boardBody__column__name__input' autoFocus data-id={item.id} type='text' placeholder='Wpisz nazwę karty' value={this.props.boardState.newColName} onChange={this.colNameChange}/>
                     </form>
                 }
-
+                console.log(index)
                 return (
                     <li data-id={item.id} key={`${item.id}`} className={`boardBody__column ${e.boardBodyActive ? '' : 'none'} ` }>
                         <div className='boardBody__column__header'>
                             {name}
-                            <span className='boardBody__column__header__options' data-colid={item.id} onClick={this.removeColumn} title='Usuń listę'>x</span>
+                            <span className='boardBody__column__header__options' data-colid={index} onClick={this.removeColumn} title='Usuń listę'>x</span>
                         </div>
                         <ul className='testlist1'>
                             <li>

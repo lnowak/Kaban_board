@@ -327,19 +327,16 @@ class Kanban extends Component {
         }
     }
 
-    removeColumn = e => {
+    removeColumn = (e, index) => {
         const newBoard = this.state.board.map(item1 => {
-            // if (item1.boardBodyActive) {
-                item1.boardCol.filter( item2 => {
-                    if (item2.id === Number(e.target.dataset.colid) && item1.boardBodyActive) {
-                        console.log(item2)
-                        return item2.id !== item2.id
-                    }
-                    // console.log(item2.id, Number(e.target.dataset.colid), item2.id === Number(e.target.dataset.colid))
-                    // return item2.id === Number(e.target.dataset.colid)
-                })
-            // }
-            console.log(item1)
+            const news = [...item1.boardCol];
+            console.log(index)
+            if (item1.boardBodyActive) { 
+
+                news.splice(e.target.dataset.colid, 1);
+                console.log(e.target.dataset.colid )
+                item1.boardCol = news
+            }
             return item1
         })
         console.log(newBoard);
