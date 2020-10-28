@@ -12,13 +12,31 @@ class Background extends Component {
         this.props.descFormSave(e);
     }
 
+    changeHeaderTitle = (e) => {
+        this.props.changeHeaderTitle(e);
+    }
+
+    changeListItemName = (e) => {
+        this.props.changeListItemName(e);
+    }
+
+    saveListItemName = e => {
+        this.props.saveListItemName(e);
+    }
+
     render() {
         const name = this.props.state.board.map( item1 => {
             if (item1.boardBodyActive) {
                 return item1.boardCol.map( item2 => {
                     return item2.tasks.map(item3 => {
-                        if(item3.detailedDescriptionOpen) {
-                            return item3.taskName
+                        if(item3.detailedDescriptionOpen && !item3.descActive) {
+                            return <h1 data-boardid={item2.id} data-id={item3.id} key={item3.id} className='detailed__description__header__title' onClick={this.changeHeaderTitle}>{item3.taskName}</h1>
+                        } if(item3.detailedDescriptionOpen && item3.descActive) {
+                            return (
+                            <form onSubmit={this.saveListItemName} data-boardid={item2.id} data-id={item3.id} key={item3.id}>
+                                <input className='detailed__description__header__input' autoFocus value={this.props.state.newColumnItemName} data-boardid={item2.id} data-id={item3.id} onChange={this.changeListItemName}/>
+                            </form>
+                            )
                         }
                     });
                 })
@@ -29,9 +47,6 @@ class Background extends Component {
             if (item1.boardBodyActive) {
                 return item1.boardCol.map( item2 => {
                     return item2.tasks.map(item3 => {
-                        // if(item3.detailedDescriptionOpen && !this.props.state.descActive) {
-                        //     return <div className='as' key={item3.id} data-colid={item2.id} data-id={item3.id} onClick={this.descFormActive}>{item3.desc.length === 0 ? 'Podaj szczegółowy opis' : item3.desc}</div>
-                        // }
                         if (item3.detailedDescriptionOpen) {
                             return (
                                 <form className='form__desc' data-id={item3.id} data-colid={item2.id} onSubmit={this.descFormSave} key={item3.id}>
@@ -43,13 +58,13 @@ class Background extends Component {
                     });
                 })
             }
-        })
+        })     
 
         return (
             <div className={`${this.props.state.backgroundActive ? 'fullscreen__background' : 'none'}`} onClick={this.backgroundOff}>
                 <div className={`${this.props.state.editItemActive ? 'detailed__description' : 'none'}`}>
                     <header className='detailed__description__header'>
-                        <h1 className='detailed__description__header__title'>{name}</h1>
+                        {name}
                         <button className='detailed__description__header__closeButton' onClick={this.backgroundOff}>X</button>
                     </header>
                     <section className='detailed__description__body'>

@@ -188,6 +188,14 @@ background: #af8d8d;
     margin-top: 5px;
 }
 
+.shortcut__itemEditButton {
+    height: 35px;
+    width: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .btn {
     width: 150px;
     height: 30px;
@@ -518,4 +526,10 @@ background: #af8d8d;
 
 .detailed__description__header__closeButton:hover {
     background-color: rgba(141, 133, 133, 0.322);
+}
+
+.detailed__description__header__input {
+    width: 400px;
+    height: 35px;
+    margin: 5px 0 0 5px;
 }

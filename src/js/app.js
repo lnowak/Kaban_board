@@ -131,6 +131,7 @@ class Kanban extends Component {
         newDesc: '',
         descActive: false,
         detailedDescriptionOpen: false,
+        newColumnItemName: '',
     }
 
     handleBoardElementActive = () => {
@@ -202,6 +203,7 @@ class Kanban extends Component {
                 item1.boardCol.map( item2 => {
                     item2.tasks.map(item3 => {
                         item3.newDesc = item3.desc;
+                        item3.descActive = false;
                         return item3
                     });
                     return item2
@@ -214,6 +216,7 @@ class Kanban extends Component {
                 backgroundActive: false,
                 editItemActive: false,
                 descActive: false,
+                newColumnItemName: '',
             })
         }
     }
@@ -553,12 +556,79 @@ class Kanban extends Component {
         })
     }
 
-    render() {     
+    changeHeaderTitle = (e) => {
+        const newBoard = this.state.board.map(item1 => {
+            if (item1.boardBodyActive) {
+                item1.boardCol.map( item2 => {
+                    item2.tasks.map(item3 => {
+                        console.log(item2)
+                        if (Number(e.target.dataset.boardid) === item2.id && Number(e.target.dataset.id) === item3.id){
+                            item3.descActive = true;
+                            this.setState({newColumnItemName: item3.taskName})
+                        }
+                        else {
+                            item3.descActive = false;
+                        }
+                        return item3
+                    })
+                    return item2
+                })
+            }
+            return item1
+        })
+        this.setState({board: newBoard});
+    }
+
+    changeListItemName = e => {
+        this.state.board.forEach(item1 => {
+            if(item1.boardBodyActive) {
+                item1.boardCol.forEach(item2 => {
+                    if(Number(e.target.dataset.boardid) === item2.id) {
+                        item2.tasks.forEach( item3 => {
+                            if (Number(e.target.dataset.id) === item3.id) {
+                                this.setState({newColumnItemName: e.target.value})
+                            }
+                        })
+                    }
+                })
+            }
+        })
+    }
+
+    saveListItemName = e => {
+        e.preventDefault();
+        const newBoard = this.state.board.map(item1 => {
+            if(item1.boardBodyActive) {
+                item1.boardCol.map(item2 => {
+                    if(Number(e.target.dataset.boardid) === item2.id) {
+                        item2.tasks.map( item3 => {
+                            if (Number(e.target.dataset.id) === item3.id) {
+                                item3.taskName = this.state.newColumnItemName;
+                                item3.descActive = false;
+                            }
+                            return item3
+                        })
+                    }
+                    return item2
+                })
+            }
+            return item1
+        })
+        if (this.state.newColumnItemName.length > 0) {
+            this.setState({
+                board: newBoard,
+                newColumnItemName: ''
+            })
+        }
+        
+    }
+
+    render() {
         return (
             <>
-                <Header handleBoardElementActive={this.handleBoardElementActive} headerState={this.state} />
+                <Header handleBoardElementActive={this.handleBoardElementActive} state={this.state} />
                 <Board removeColumn={this.removeColumn} boardState={this.state} handleEditListItem={this.handleEditListItem} addNewList={this.addNewList} listNameChange={this.listNameChange} listNameSubmit={this.listNameSubmit} listRemove={this.listRemove} showListBody={this.showListBody} addNewColumnForm={this.addNewColumnForm} colNameChange={this.colNameChange} addNewColumn={this.addNewColumn} openNewInputAddForm={this.openNewInputAddForm} closeNewInputAddForm={this.closeNewInputAddForm} newColumnItemInputChange={this.newColumnItemInputChange} newColumnItemNameSave={this.newColumnItemNameSave} newColumnItemNameCancel={this.newColumnItemNameCancel} cancelActions={this.cancelActions} columnFormOpen={this.columnFormOpen} editBackgroundOpen={this.editBackgroundOpen}/>
-                <Background state={this.state} descFormSave={this.descFormSave} backgroundOff={this.backgroundOff} descFormActive={this.descFormActive} descriptionChange={this.descriptionChange}/>
+                <Background state={this.state} saveListItemName={this.saveListItemName} changeListItemName={this.changeListItemName} changeHeaderTitle={this.changeHeaderTitle} descFormSave={this.descFormSave} backgroundOff={this.backgroundOff} descFormActive={this.descFormActive} descriptionChange={this.descriptionChange}/>
             </>
         )
     }
