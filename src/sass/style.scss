@@ -445,7 +445,7 @@ background: #af8d8d;
 .as {
     max-height: 500px;
     resize: none;
-    width: 75%;
+    width: 95%;
     padding: 9px;
     box-sizing: border-box;
     font-size: 15px;
@@ -532,4 +532,24 @@ background: #af8d8d;
     width: 400px;
     height: 35px;
     margin: 5px 0 0 5px;
+}
+
+.detailed__description__body {
+    display: flex;
+}
+
+.detailed__description__body__mainCol {
+    width: 100%;
+}
+
+.detailed__description__body__sidebar {
+    width: 150px;
+}
+
+.card__actions {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 50px;
+    margin-top: 7px;
 }

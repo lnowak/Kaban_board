@@ -61,7 +61,7 @@ class Background extends Component {
         })     
 
         return (
-            <div className={`${this.props.state.backgroundActive ? 'fullscreen__background' : 'none'}`} onClick={this.backgroundOff}>
+            <div className={`${this.props.state.backgroundActive ? 'fullscreen__background' : 'none'}`} onMouseDownCapture={this.backgroundOff}>
                 <div className={`${this.props.state.editItemActive ? 'detailed__description' : 'none'}`}>
                     <header className='detailed__description__header'>
                         {name}
@@ -83,9 +83,12 @@ class Background extends Component {
                         </div>
                         <div className='detailed__description__body__sidebar'>
                             <div className='card__adds'>
-
+                                <span>Etykiety</span>
                             </div>
-                            <div className='card__actions'></div>
+                            <div className='card__actions'>
+                                <span>Usuń</span>
+                                <span>Przenieś...</span>
+                            </div>
                         </div>
                     </section>
                 </div>
