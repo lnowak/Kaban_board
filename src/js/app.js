@@ -219,6 +219,26 @@ class Kanban extends Component {
                 newColumnItemName: '',
             })
         }
+        if(e.target.className !== 'detailed__description__header__input' && this.state.newColumnItemName.length > 0) {
+            const newOne = this.state.board.map(item1 => {
+                item1.boardCol.map( item2 => {
+                    item2.tasks.map(item3 => {
+                        if (item3.descActive && this.state.backgroundActive) {
+                            item3.descActive = false;
+                            item3.taskName = this.state.newColumnItemName;
+                        }
+                        return item3
+                    });
+                    return item2
+                });
+                return item1
+            })
+
+            this.setState({
+                board: newOne,
+                newColumnItemName: '',
+            })
+        }
     }
 
     listNameChange = (id, value) => {
@@ -334,16 +354,12 @@ class Kanban extends Component {
     removeColumn = (e, index) => {
         const newBoard = this.state.board.map(item1 => {
             const news = [...item1.boardCol];
-            console.log(index)
             if (item1.boardBodyActive) { 
-
                 news.splice(e.target.dataset.colid, 1);
-                console.log(e.target.dataset.colid )
                 item1.boardCol = news
             }
             return item1
         })
-        console.log(newBoard);
 
         this.setState({
             board: newBoard,
@@ -561,7 +577,7 @@ class Kanban extends Component {
             if (item1.boardBodyActive) {
                 item1.boardCol.map( item2 => {
                     item2.tasks.map(item3 => {
-                        console.log(item2)
+                        // console.log(item2)
                         if (Number(e.target.dataset.boardid) === item2.id && Number(e.target.dataset.id) === item3.id){
                             item3.descActive = true;
                             this.setState({newColumnItemName: item3.taskName})
